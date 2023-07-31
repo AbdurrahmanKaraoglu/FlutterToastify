@@ -1,47 +1,72 @@
 import 'package:flutter/material.dart';
 
 class AnimatedProgressBar extends StatefulWidget {
-  const AnimatedProgressBar({super.key, required this.duration});
+  const AnimatedProgressBar({super.key, required this.duration, required this.foregroundColor, required this.backgroundColor});
+  final Color foregroundColor;
+  final Color backgroundColor;
   final Duration duration;
+  final double value = 0;
 
   @override
   State<AnimatedProgressBar> createState() => _AnimatedProgressBarState();
 }
 
 class _AnimatedProgressBarState extends State<AnimatedProgressBar> with SingleTickerProviderStateMixin {
-  late AnimationController _progressController;
-  late Animation<double> _progressAnimation;
+  late AnimationController _controller;
+  late Animation<double> curve;
+  late Tween<double> valueTween;
 
   @override
   void initState() {
     super.initState();
 
-    _progressController = AnimationController(
-      vsync: this,
+    _controller = AnimationController(
       duration: widget.duration,
+      vsync: this,
     );
-
-    _progressAnimation = Tween<double>(
+    curve = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    );
+    valueTween = Tween<double>(
       begin: 1,
       end: 0,
-    ).animate(_progressController);
+    );
+    _controller.forward();
+  }
 
-    _progressController.forward();
+  @override
+  void didUpdateWidget(AnimatedProgressBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
 
-    _progressController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        // Animation completed, do something if needed.
-      }
-    });
+    if (widget.value != oldWidget.value) {
+      double beginValue = valueTween.evaluate(curve);
+      valueTween = Tween<double>(
+        begin: beginValue,
+        end: widget.value,
+      );
+
+      _controller
+        ..value = 0
+        ..forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _progressAnimation,
+      animation: curve,
       builder: (context, child) {
         return LinearProgressIndicator(
-          value: _progressAnimation.value,
+          backgroundColor: widget.backgroundColor,
+          valueColor: AlwaysStoppedAnimation(widget.foregroundColor),
+          value: valueTween.evaluate(curve),
         );
       },
     );

@@ -1,3 +1,10 @@
+enum NotificationType {
+  success,
+  error,
+  info,
+  custom,
+}
+
 enum AnimationType {
   fromLeft,
   fromRight,
@@ -6,20 +13,13 @@ enum AnimationType {
 }
 
 enum NotificationPosition {
-  topCenter,
-  topLeft,
-  topRight,
   center,
-  centerLeft,
   centerRight,
+  centerLeft,
+  topCenter,
+  topRight,
+  topLeft,
   bottomCenter,
-  bottomLeft,
   bottomRight,
-}
-
-enum FlutterToastifyType {
-  success,
-  error,
-  info,
-  custom,
+  bottomLeft,
 }
