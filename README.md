@@ -1,39 +1,70 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## flutter_toastify
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+[![pub package](https://img.shields.io/pub/v/flutter_toastify.svg)](https://pub.dev/packages/flutter_toastify)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+FlutterToastify, kullanıcılara animasyonlu üst bildirimler (SnackBar) gösterme işlevselliği sağlayan basit bir Flutter paketidir.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Özellikler
 
-## Features
+- `message`: Bildirimde gösterilecek mesajı belirtir. (zorunlu)
+- `position`: Bildirimin konumunu belirtir. Varsayılan olarak üst orta.
+- `backgroundColor`: Bildirim arkaplan rengini belirtir. Varsayılan olarak beyaz.
+- `textColor`: Bildirim metin rengini belirtir. Varsayılan olarak siyah.
+- `fontSize`: Bildirim metin boyutunu belirtir. Varsayılan olarak 16.
+- `duration`: Bildirimin ekranda kalma süresini belirtir. Varsayılan olarak 2 saniye.
+- `animation`: Bildirimin açılma animasyon türünü belirtir. Varsayılan olarak yukarıdan aşağıya.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Kullanım
 
-## Getting started
+Paketi kullanmak için, projenizin `pubspec.yaml` dosyasına aşağıdaki satırı ekleyin:
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_toastify: ^1.0.0 # (paket versiyon numarası)
 ```
 
-## Additional information
+Sonra, FlutterToastify paketini uygulama kodunuzda kullanabilirsiniz. Aşağıda bir örnek kullanım gösterilmiştir:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_toastify/flutter_toastify.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('FlutterToastify Örneği')),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              FlutterToastify(
+                message: 'Merhaba, FlutterToastify ile bildirim gösteriyorum!',
+                position: NotificationPosition.topCenter,
+                backgroundColor: Colors.blue,
+                textColor: Colors.white,
+                fontSize: 18.0,
+                duration: Duration(seconds: 3),
+                animation: AnimationType.fromTop,
+              ).show(context);
+            },
+            child: Text('Bildirim Göster'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+Bu örnek, kullanıcı düğmeye tıkladığında üstte mavi bir bildirim gösterecektir.
+
+## Lisans
+
+Bu proje MIT Lisansı altında lisanslanmıştır. Daha fazla bilgi için [LICENSE](https://pub.dev/packages/flutter_toastify/license) dosyasını inceleyebilirsiniz.
