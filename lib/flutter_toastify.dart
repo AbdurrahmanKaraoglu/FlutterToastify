@@ -1,16 +1,15 @@
+// flutter_toastify kütüphanesi
 library flutter_toastify;
-
 import 'package:flutter/material.dart';
-import 'package:flutter_toastify/resources/constants.dart';
-import 'package:flutter_toastify/resources/enums.dart';
-import 'package:flutter_toastify/resources/extensions.dart';
-
+import 'package:flutter_toastify/components/constants.dart';
+import 'package:flutter_toastify/components/enums.dart';
+import 'package:flutter_toastify/components/extensions.dart';
 import 'package:flutter_toastify/widget/animated_progress_bar.dart';
+import 'package:flutter_toastify/widget/flutter_toastify_conten.dart';
 
 import 'dart:async';
 
-import 'package:flutter_toastify/widget/flutter_toastify_conten.dart';
-
+ 
 // ignore: must_be_immutable
 class FlutterToastify extends StatefulWidget {
   FlutterToastify({
@@ -132,7 +131,7 @@ class FlutterToastify extends StatefulWidget {
     checkAssertions();
   }
 
-  ///Checks assertions for various constructors of this package
+  // Farklı seçeneklerin sağlanmasını sağlamak için bir dizi kontrol gerçekleştirir
   void checkAssertions() {
     if (showProgressIndicator) {
       assert(autoDismiss != false);
@@ -176,159 +175,122 @@ class FlutterToastify extends StatefulWidget {
     }
   }
 
-  ///The toast title widget
+  // Bildirim başlığı widget'ı
   final Widget? title;
 
-  ///The toast description widget
+  // Bildirim açıklama widget'ı
   final Widget description;
 
-  ///The toast icon, required only if using the default constructor
-  ///for other toast types (Success, Info, error) the icon is not changeable
-  ///
+  // Bildirim ikonu, sadece varsayılan yapıyı kullanan diğer bildirim türleri (Success, Info, Error) için gerekli
   late Widget? icon;
 
-  ///The size of the icon, by default it's 20px
-  ///
+  // İkon boyutu, varsayılan olarak 20px
   final double iconSize;
 
-  ///The type of the animation set on the notification
-  ///possible values
-  ///```dart
-  ///{
-  ///fromLeft,
-  ///fromRight,
-  ///fromTop,
-  ///fromBottom,
-  ///}
-  ///```
-  ///default value `fromLeft`
-  ///
+  // Bildirime uygulanan animasyon türü
+  // Mümkün olan değerler:
+  // fromLeft, fromRight, fromTop, fromBottom
+  // Varsayılan değer: fromRight
   final AnimationType animation;
 
-  ///The duration of the animation
-  ///Default value `Duration(milliseconds: 600)`
-  ///
+  // Animasyon süresi
+  // Varsayılan değer: Duration(milliseconds: 600)
   final Duration animationDuration;
 
-  ///The shadow color applied on the notification widget
-  /// by defualt it's `Colors.grey`
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
+  // Bildirim widget'ının gölge rengi
+  // Varsayılan olarak Colors.grey
+  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late Color shadowColor = Colors.grey;
 
-  /// the background color of the notification
-  /// by default it's set to white
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
+  // Bildirimin arkaplan rengi
+  // Varsayılan olarak beyaz olarak ayarlanır
+  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late Color background;
 
-  ///The color of the progress
-  ///by default it's blue
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
+  // İlerleme çubuğunun rengi
+  // Varsayılan olarak mavi
+  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late Color progressIndicatorColor;
 
-  ///the border radius of the notification widget
-  ///this parameter it's only set if you are using the default constructor
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  ///
+  // Bildirim widget'ının kenar yarıçapı
+  // Sadece varsayılan yapıyı kullandığınızda bu parametre ayarlanır
+  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late double radius = 5.0;
 
-  ///How much the notification will take time,
-  ///by default the duration is `3000 milliseconds`
-  ///
+  // Bildirimin ne kadar süreceği
+  // Varsayılan olarak 3000 milisaniye
   final Duration toastDuration;
 
-  ///enable or disable the shadow rendering
-  ///by default it's true
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  ///
+  // Gölge oluşturmayı etkinleştirme veya devre dışı bırakma
+  // Varsayılan olarak true
+  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late bool enableShadow = true;
 
-  ///enable or disable the progress indicator rendering
-  ///by default the indicator is displayed
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  ///
+  // İlerleme göstergesi oluşturmayı etkinleştirme veya devre dışı bırakma
+  // Varsayılan olarak gösterilir
+  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late bool showProgressIndicator;
 
-  ///Display or hide the close button
-  ///by default the close button is displayed
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  ///
+  // Kapat düğmesini görüntüleyin veya gizleyin
+  // Varsayılan olarak kapat düğmesi görüntülenir
+  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
   final bool displayCloseButton;
 
-  ///Close widget rendered as the close function
-  ///by default the close button is displayed, if you don't want it set `closeButton` to null
-  /// for types constructors (Success, Info, Delete) this parameter is unchangeable
-  ///
+  // Kapatma düğmesi olarak gösterilecek widget
+  // Varsayılan olarak kapat düğmesi görüntülenir, eğer istemezseniz closeButton'a null değeri verin
+  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
   final Widget Function(void Function() dismissNotification)? closeButton;
 
-  ///Function invoked when user press on the close button
+  // Kullanıcı kapatma düğmesine bastığında çağrılan fonksiyon
   final Function()? onCloseButtonPressed;
 
-  ///Function invoked when the notification is closed after the finish of the progress indicator
-  ///
+  // İlerleme göstergisi tamamlandıktan sonra bildirimin kapatılması durumunda çağrılan fonksiyon
   final Function()? onProgressFinished;
 
-  ///The type of the notification, will be set automatically on every constructor
-  ///possible values
-  ///```dart
-  ///{
-  ///success,
-  ///error,
-  ///info,
-  ///custom
-  ///}
-  ///```
+  // Bildirim türü, her yapılandırmacıda otomatik olarak ayarlanır
+  // Mümkün olan değerler: success, error, info, custom
   late NotificationType notificationType;
 
-  ///The type of the align set on the notification
-  ///possible values
-  ///```dart
-  ///{
-  ///top,
-  ///center,
-  ///bottom
-  ///}
-  ///```
-  ///default value `top`
-  ///
+  // Bildirim hizalamasının türü
+  // Mümkün olan değerler: top, center, bottom
+  // Varsayılan değer: top
   final NotificationPosition notificationPosition;
 
-  ///Action widget rendered with clickable inkwell
-  ///by default `action == null`
+  // Tıklanabilir inkwell ile görüntülenen eylem bileşeni
+  // Varsayılan olarak action null'dır
   final Widget? action;
 
-  ///Function invoked when pressing `action` widget
-  ///must be not null when `action != null`
+  // Eylem bileşenine tıklandığında çağrılan fonksiyon
+  // action null değilse onActionPressed null olmamalıdır
   final Function()? onActionPressed;
 
-  ///define whether the notification will be dismissed automatically or not
-  ///by default `autoDimiss == false`
+  // Bildirimin otomatik olarak kapatılıp kapatılmayacağını belirler
+  // Varsayılan olarak autoDismiss == true
   final bool autoDismiss;
 
-  ///the width of the notification widget
+  // Bildirim widget'ının genişliği
   final double? width;
 
-  ///the height of the notification widget
+  // Bildirim widget'ının yüksekliği
   final double? height;
 
-  ///Function invoked when tapping outside the notification
-  ///Or when pressing the back button of the phone
-  ///or when tapping on the screen
+  // Bildirimin dışında tıklanarak veya telefonun geri düğmesine basılarak veya ekrana tıklanarak çağrılan fonksiyon
   final Function()? onDismiss;
 
-  //Overlay that does not block the screen
+  // Eğilimli bir bildiri oluşturur
   OverlayEntry? overlayEntry;
 
-  ///The progress indicator background color
-  ///by default it's grey
+  // İlerleme göstergesi arka plan rengi
+  // Varsayılan olarak gri
   final Color progressIndicatorBackground;
 
-  ///display the notification on the screen
-  ///[context] the context of the application
+  // Ekranın üzerine bildirimi gösterir
   void show(BuildContext context) {
     overlayEntry = _overlayEntryBuilder();
     Overlay.maybeOf(context)?.insert(overlayEntry!);
   }
 
+  // Overlay'ı kapatır
   void closeOverlay() {
     overlayEntry?.remove();
     overlayEntry = null;
@@ -434,13 +396,11 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
       default:
     }
 
-    /// ! To support Flutter < 3.0.0
-    /// This allows a value of type T or T?
-    /// to be treated as a value of type T?.
-    ///
-    /// We use this so that APIs that have become
-    /// non-nullable can still be used with `!` and `?`
-    /// to support older versions of the API as well.
+    // ! Flutter < 3.0.0 için desteklemek için
+    // T veya T? türündeki bir değeri T? türüne dönüştürmeye yarar
+    //
+    // Bu, artık null olmayan API'leri kullanmaya izin vermek için
+    // `!` ve `?` ile eski sürümleri de desteklemek için kullanılır
     T? ambiguate<T>(T? value) => value;
 
     ambiguate(WidgetsBinding.instance)?.addPostFrameCallback(
@@ -464,7 +424,7 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
                     color: widget.shadowColor.withOpacity(0.2),
                     spreadRadius: 1,
                     blurRadius: 1,
-                    offset: const Offset(0, 1), // changes position of shadow
+                    offset: const Offset(0, 1), // gölgenin pozisyonunu değiştirir
                   ),
                 ]
               : null,

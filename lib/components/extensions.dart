@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toastify/resources/constants.dart';
-import 'package:flutter_toastify/resources/enums.dart';
+import 'package:flutter_toastify/components/constants.dart';
+import 'package:flutter_toastify/components/enums.dart';
 
 extension NotificationPositionExtension on NotificationPosition {
   Alignment get alignment {

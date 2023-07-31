@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_toastify/components/enums.dart';
 import 'package:flutter_toastify/flutter_toastify.dart';
-import 'package:flutter_toastify/resources/enums.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,7 +9,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // Bu widget, uygulamanızın köküdür.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,8 +47,8 @@ class _ExampleAppState extends State<ExampleApp> {
                       width: 360,
                       notificationPosition: NotificationPosition.topLeft,
                       animation: AnimationType.fromTop,
-                      title: const Text('Update'),
-                      description: const Text('Your data has been updated'),
+                      title: const Text('Güncelleme'),
+                      description: const Text('Verileriniz güncellendi'),
                       onDismiss: () {},
                     ).show(context);
                   },
@@ -60,7 +60,7 @@ class _ExampleAppState extends State<ExampleApp> {
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Success theme notification\n(top left)',
+                          'Başarılı tema bildirimi\n(sol üst)',
                           style: TextStyle(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
@@ -77,8 +77,8 @@ class _ExampleAppState extends State<ExampleApp> {
                       width: 360,
                       notificationPosition: NotificationPosition.topRight,
                       animation: AnimationType.fromRight,
-                      title: const Text('Error'),
-                      description: const Text('Please verifiy your data'),
+                      title: const Text('Hata'),
+                      description: const Text('Verilerinizi doğrulayın'),
                       onDismiss: () {},
                     ).show(context);
                   },
@@ -90,7 +90,7 @@ class _ExampleAppState extends State<ExampleApp> {
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Error theme notification\n(top right)',
+                          'Hata tema bildirimi\n(sağ üst)',
                           style: TextStyle(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
@@ -114,9 +114,9 @@ class _ExampleAppState extends State<ExampleApp> {
                       width: 360,
                       notificationPosition: NotificationPosition.centerLeft,
                       animation: AnimationType.fromLeft,
-                      title: const Text('Info'),
+                      title: const Text('Bilgi'),
                       description: const Text(
-                        'This account will be updated once you exit',
+                        'Hesabınız çıkış yapıldığında güncellenecektir.',
                       ),
                       showProgressIndicator: false,
                       onDismiss: () {},
@@ -130,7 +130,7 @@ class _ExampleAppState extends State<ExampleApp> {
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Info theme notification\n(center left)',
+                          'Bilgi tema bildirimi\n(ortada solda)',
                           style: TextStyle(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
@@ -148,13 +148,13 @@ class _ExampleAppState extends State<ExampleApp> {
                       notificationPosition: NotificationPosition.centerRight,
                       animation: AnimationType.fromRight,
                       title: const Text(
-                        'New version',
+                        'Yeni sürüm',
                         style: TextStyle(
                           color: Colors.red,
                         ),
                       ),
                       description: const Text(
-                        'A new version is available to you please update.',
+                        'Size uygun yeni bir sürüm mevcut, lütfen güncelleyin.',
                       ),
                       icon: const Icon(
                         Icons.access_alarm,
@@ -170,7 +170,7 @@ class _ExampleAppState extends State<ExampleApp> {
                     color: Colors.blue,
                     child: const Center(
                       child: Text(
-                        'Custom notification\n(center right)',
+                        'Özel bildirim\n(ortada sağda)',
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
@@ -193,9 +193,9 @@ class _ExampleAppState extends State<ExampleApp> {
                       width: 360,
                       notificationPosition: NotificationPosition.bottomLeft,
                       animation: AnimationType.fromLeft,
-                      title: const Text('Info'),
+                      title: const Text('Bilgi'),
                       description: const Text(
-                        'This account will be updated once you exit',
+                        'Hesabınız çıkış yapıldığında güncellenecektir.',
                       ),
                       action: const Text(
                         'Link',
@@ -217,7 +217,7 @@ class _ExampleAppState extends State<ExampleApp> {
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Notification with action\n(bottom left)',
+                          'Eylemli bildirim\n(sol alt)',
                           style: TextStyle(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
@@ -235,7 +235,7 @@ class _ExampleAppState extends State<ExampleApp> {
                       notificationPosition: NotificationPosition.bottomRight,
                       animation: AnimationType.fromBottom,
                       description: const Text(
-                        'A new version is available to you please update.',
+                        'Size uygun yeni bir sürüm mevcut, lütfen güncelleyin.',
                       ),
                       icon: const Icon(
                         Icons.access_alarm,
@@ -253,7 +253,7 @@ class _ExampleAppState extends State<ExampleApp> {
                     color: Colors.blue,
                     child: const Center(
                       child: Text(
-                        'Elegant notification without title\n(bottom right)',
+                        'Başlık olmadan zarif bildirim\n(sağ alt)',
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
@@ -277,7 +277,7 @@ class _ExampleAppState extends State<ExampleApp> {
                       notificationPosition: NotificationPosition.topRight,
                       animation: AnimationType.fromRight,
                       description: const Text(
-                        'You can now leave the dashboard.',
+                        'Artık panele çıkabilirsiniz.',
                       ),
                       icon: const Icon(
                         Icons.dashboard_customize_outlined,
@@ -310,7 +310,7 @@ class _ExampleAppState extends State<ExampleApp> {
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
-                          'Notification with custom close button\n(top right)',
+                          'Özel kapatma düğmesi olan bildirim\n(sağ üst)',
                           style: TextStyle(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
