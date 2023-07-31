@@ -1,6 +1,6 @@
 name: flutter_toastify
 description: A Flutter package for showing toast notifications - Bildirimleri göstermek için bir Flutter paketi
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/AbdurrahmanKaraoglu/FlutterToastify
 repository: https://github.com/AbdurrahmanKaraoglu/flutter_toastify.git
  

@@ -2,56 +2,95 @@ library flutter_toastify;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_toastify/enums.dart';
+import 'package:flutter_toastify/widget/animated_progress_bar.dart';
 
-
-
-class FlutterToastify {
-  final String message;
-  final NotificationPosition position;
-  final Color backgroundColor;
-  final Color textColor;
-  final double fontSize;
+class FlutterToastify extends StatefulWidget {
+  const FlutterToastify(
+      {super.key, this.title, required this.description, required this.type, required this.showProgressIndicator, required this.duration, required this.autoDismiss, this.onCloseButtonPressed});
+  final String? title;
+  final String description;
+  final FlutterToastifyType type;
+  final bool showProgressIndicator;
   final Duration duration;
-  final AnimationType animation;
+  final bool autoDismiss;
+  final Function()? onCloseButtonPressed;
+  @override
+  State<FlutterToastify> createState() => _FlutterToastifyState();
+}
 
-  FlutterToastify({
-    required this.message,
-    this.position = NotificationPosition.bottomCenter,
-    this.backgroundColor = Colors.black,
-    this.textColor = Colors.white,
-    this.fontSize = 16.0,
-    this.duration = const Duration(seconds: 2),
-    this.animation = AnimationType.fromBottom,
-  });
+class _FlutterToastifyState extends State<FlutterToastify> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _offsetAnimation;
 
-  void show(BuildContext context) {
-    final scaffold = ScaffoldMessenger.of(context);
+  @override
+  void initState() {
+    super.initState();
 
-    final snackBar = SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(color: textColor, fontSize: fontSize),
-      ),
-      backgroundColor: backgroundColor,
-      duration: duration,
-      behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.symmetric(
-        vertical: position == NotificationPosition.bottomCenter ? 20.0 : 0.0,
-        horizontal: position == NotificationPosition.center ? 20.0 : 0.0,
+    _controller = AnimationController(
+      duration: widget.duration,
+      vsync: this,
+    );
+
+    _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0, -1),
+      end: const Offset(0, 0),
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
       ),
     );
 
-    scaffold.showSnackBar(snackBar).closed.then((reason) {
-      if (animation == AnimationType.fromBottom) {
-        // Tetikleyerek rebuild yapma işlemini başlatıyoruz.
-        setState(() {});
-      }
+    _controller.forward();
+    if (widget.autoDismiss) {
+      _controller.addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _dismissNotification();
+        }
+      });
+    }
+  }
+
+  void _dismissNotification() {
+    _controller.reverse().whenComplete(() {
+      widget.onCloseButtonPressed?.call();
+      Navigator.of(context).pop();
     });
   }
 
-  void setState(VoidCallback fn) {
-    // Dummy method to trigger rebuild when using fromBottom animation
-    // Bu işlev, setState kullanmadan build işlemini tetiklemek için kullanılabilir,
-    // fakat uygulama kodunda kullanılmıyor.
+  @override
+  Widget build(BuildContext context) {
+    return SlideTransition(
+      position: _offsetAnimation,
+      child: AlertDialog(
+        title: widget.title != null ? Text(widget.title!) : null,
+        content: Text(widget.description),
+        actions: [
+          if (widget.showProgressIndicator) AnimatedProgressBar(duration: widget.duration),
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: _dismissNotification,
+          ),
+        ],
+      ),
+    );
   }
 }
+ 
+ 
+ 
+
+ 
+
+// Kullanım Örneği:
+// FlutterToastify(
+//   title: 'Başlık',
+//   description: 'Bildirim açıklaması',
+//   type: FlutterToastifyType.info,
+//   showProgressIndicator: true,
+//   duration: Duration(milliseconds: 3000),
+//   autoDismiss: true,
+//   onCloseButtonPressed: () {
+//     // Bildirim kapatıldığında yapılacak işlemler
+//   },
+// )

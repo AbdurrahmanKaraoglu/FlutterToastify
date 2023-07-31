@@ -16,3 +16,10 @@ enum NotificationPosition {
   bottomLeft,
   bottomRight,
 }
+
+enum FlutterToastifyType {
+  success,
+  error,
+  info,
+  custom,
+}
