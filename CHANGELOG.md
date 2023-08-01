@@ -1,3 +1,5 @@
+## 1.0.4
+* FIX: Bazı basit hata düzeltmeleri.
 ## 1.0.3
 * FIX: Bazı basit hata düzeltmeleri.
 ## 1.0.2

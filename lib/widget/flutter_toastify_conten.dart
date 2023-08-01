@@ -2,6 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_toastify/components/constants.dart';
 import 'package:flutter_toastify/components/enums.dart';
 
+/// Bu kod, bir bildirim içeriği gösteren Flutter Toastify uyarılarını oluşturan `FlutterToastifyContent` adlı bir widget sınıfını tanımlar. Bu widget, bildirimlerin içeriğini oluşturmak için kullanılır ve şu özelliklere sahiptir:
+
+/// - `title`: Bildirim başlığını içeren bir Widget (isteğe bağlı).
+/// - `description`: Bildirim açıklamasını içeren bir Widget (zorunlu).
+/// - `icon`: Bildirimde gösterilecek simgeyi içeren bir Widget (isteğe bağlı).
+/// - `iconSize`: Simge boyutunu piksel cinsinden belirten bir değer (varsayılan olarak 20).
+/// - `notificationType`: Bildirim türünü belirleyen `NotificationType` enum değeri (SUCCESS, ERROR, INFO, CUSTOM).
+/// - `onCloseButtonPressed`: Kapatma düğmesine basıldığında çağrılacak fonksiyon.
+/// - `displayCloseButton`: Kapatma düğmesini gösterme veya gizleme durumunu belirleyen bir boolean değer.
+/// - `closeButton`: Kapatma düğmesi için özel olarak belirtilen bir Widget (isteğe bağlı).
+/// - `action`: Tıklanabilir mürekkep ile render edilen bir eylem bileşeni (isteğe bağlı).
+/// - `onActionPressed`: `action` bileşeni için tetikleyici fonksiyon (action != null olduğunda boş olmamalıdır).
+
+/// `FlutterToastifyContent` widget'ı, bildirim içeriğini düzenlemek için bir `Row` içinde birkaç alt bileşeni düzenler. Bildirim türüne göre, simge alanı doğru simgeyle değiştirilir ve bildirim içeriği görsel olarak oluşturulur. Aynı zamanda kapatma düğmesi ve opsiyonel eylem bileşeni de bu içeriğe eklenir.
+
+/// Genel olarak, bu kod, kullanıcı dostu bildirim içeriklerini oluşturmak için kullanılabilir ve bildirimlerin içeriğini düzenleme sürecini kolaylaştırır.
+
+
+/// This code defines a Flutter widget called `FlutterToastifyContent`, which is used to create the content of Flutter Toastify notifications. The widget is responsible for building the visual representation of the notification content and has the following properties:
+
+/// - `title`: A Widget that contains the title of the notification (optional).
+/// - `description`: A Widget that contains the description of the notification (required).
+/// - `icon`: A Widget that represents the icon to be displayed in the notification (optional).
+/// - `iconSize`: A value that determines the size of the icon in pixels (default is 20).
+/// - `notificationType`: A `NotificationType` enum value that specifies the type of the notification (SUCCESS, ERROR, INFO, CUSTOM).
+/// - `onCloseButtonPressed`: A function that will be called when the close button is pressed.
+/// - `displayCloseButton`: A boolean value that determines whether to display the close button or not.
+/// - `closeButton`: A custom Widget specifically provided for the close button (optional).
+/// - `action`: A clickable ink renderable action component (optional).
+/// - `onActionPressed`: A trigger function for the `action` component (should not be empty when `action != null`).
+
+/// The `FlutterToastifyContent` widget organizes the notification content within a `Row` with several sub-components. Depending on the notification type, the icon area is replaced with the appropriate icon, and the visual representation of the notification content is built. Additionally, the close button and optional action component are also included in this content.
+
+/// In conclusion, this code can be used to create user-friendly notification contents and simplifies the process of composing the content for notifications.
+
 class FlutterToastifyContent extends StatelessWidget {
   const FlutterToastifyContent({
     Key? key,
@@ -167,37 +202,3 @@ class FlutterToastifyContent extends StatelessWidget {
 
 
 
-// Bu kod, bir bildirim içeriği gösteren Flutter Toastify uyarılarını oluşturan `FlutterToastifyContent` adlı bir widget sınıfını tanımlar. Bu widget, bildirimlerin içeriğini oluşturmak için kullanılır ve şu özelliklere sahiptir:
-
-// - `title`: Bildirim başlığını içeren bir Widget (isteğe bağlı).
-// - `description`: Bildirim açıklamasını içeren bir Widget (zorunlu).
-// - `icon`: Bildirimde gösterilecek simgeyi içeren bir Widget (isteğe bağlı).
-// - `iconSize`: Simge boyutunu piksel cinsinden belirten bir değer (varsayılan olarak 20).
-// - `notificationType`: Bildirim türünü belirleyen `NotificationType` enum değeri (SUCCESS, ERROR, INFO, CUSTOM).
-// - `onCloseButtonPressed`: Kapatma düğmesine basıldığında çağrılacak fonksiyon.
-// - `displayCloseButton`: Kapatma düğmesini gösterme veya gizleme durumunu belirleyen bir boolean değer.
-// - `closeButton`: Kapatma düğmesi için özel olarak belirtilen bir Widget (isteğe bağlı).
-// - `action`: Tıklanabilir mürekkep ile render edilen bir eylem bileşeni (isteğe bağlı).
-// - `onActionPressed`: `action` bileşeni için tetikleyici fonksiyon (action != null olduğunda boş olmamalıdır).
-
-// `FlutterToastifyContent` widget'ı, bildirim içeriğini düzenlemek için bir `Row` içinde birkaç alt bileşeni düzenler. Bildirim türüne göre, simge alanı doğru simgeyle değiştirilir ve bildirim içeriği görsel olarak oluşturulur. Aynı zamanda kapatma düğmesi ve opsiyonel eylem bileşeni de bu içeriğe eklenir.
-
-// Genel olarak, bu kod, kullanıcı dostu bildirim içeriklerini oluşturmak için kullanılabilir ve bildirimlerin içeriğini düzenleme sürecini kolaylaştırır.
-
-
-// This code defines a Flutter widget called `FlutterToastifyContent`, which is used to create the content of Flutter Toastify notifications. The widget is responsible for building the visual representation of the notification content and has the following properties:
-
-// - `title`: A Widget that contains the title of the notification (optional).
-// - `description`: A Widget that contains the description of the notification (required).
-// - `icon`: A Widget that represents the icon to be displayed in the notification (optional).
-// - `iconSize`: A value that determines the size of the icon in pixels (default is 20).
-// - `notificationType`: A `NotificationType` enum value that specifies the type of the notification (SUCCESS, ERROR, INFO, CUSTOM).
-// - `onCloseButtonPressed`: A function that will be called when the close button is pressed.
-// - `displayCloseButton`: A boolean value that determines whether to display the close button or not.
-// - `closeButton`: A custom Widget specifically provided for the close button (optional).
-// - `action`: A clickable ink renderable action component (optional).
-// - `onActionPressed`: A trigger function for the `action` component (should not be empty when `action != null`).
-
-// The `FlutterToastifyContent` widget organizes the notification content within a `Row` with several sub-components. Depending on the notification type, the icon area is replaced with the appropriate icon, and the visual representation of the notification content is built. Additionally, the close button and optional action component are also included in this content.
-
-// In conclusion, this code can be used to create user-friendly notification contents and simplifies the process of composing the content for notifications.

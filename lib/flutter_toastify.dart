@@ -1,4 +1,4 @@
-// flutter_toastify kütüphanesi
+/// flutter_toastify kütüphanesi
 library flutter_toastify;
 import 'package:flutter/material.dart';
 import 'package:flutter_toastify/components/constants.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_toastify/widget/flutter_toastify_conten.dart';
 import 'dart:async';
 
  
-// ignore: must_be_immutable
+/// ignore: must_be_immutable
 class FlutterToastify extends StatefulWidget {
   FlutterToastify({
     Key? key,
@@ -131,7 +131,7 @@ class FlutterToastify extends StatefulWidget {
     checkAssertions();
   }
 
-  // Farklı seçeneklerin sağlanmasını sağlamak için bir dizi kontrol gerçekleştirir
+  /// Farklı seçeneklerin sağlanmasını sağlamak için bir dizi kontrol gerçekleştirir
   void checkAssertions() {
     if (showProgressIndicator) {
       assert(autoDismiss != false);
@@ -175,122 +175,122 @@ class FlutterToastify extends StatefulWidget {
     }
   }
 
-  // Bildirim başlığı widget'ı
+  /// Bildirim başlığı widget'ı
   final Widget? title;
 
-  // Bildirim açıklama widget'ı
+  /// Bildirim açıklama widget'ı
   final Widget description;
 
-  // Bildirim ikonu, sadece varsayılan yapıyı kullanan diğer bildirim türleri (Success, Info, Error) için gerekli
+  /// Bildirim ikonu, sadece varsayılan yapıyı kullanan diğer bildirim türleri (Success, Info, Error) için gerekli
   late Widget? icon;
 
-  // İkon boyutu, varsayılan olarak 20px
+  /// İkon boyutu, varsayılan olarak 20px
   final double iconSize;
 
-  // Bildirime uygulanan animasyon türü
-  // Mümkün olan değerler:
-  // fromLeft, fromRight, fromTop, fromBottom
-  // Varsayılan değer: fromRight
+  /// Bildirime uygulanan animasyon türü
+  /// Mümkün olan değerler:
+  /// fromLeft, fromRight, fromTop, fromBottom
+  /// Varsayılan değer: fromRight
   final AnimationType animation;
 
-  // Animasyon süresi
-  // Varsayılan değer: Duration(milliseconds: 600)
+  /// Animasyon süresi
+  /// Varsayılan değer: Duration(milliseconds: 600)
   final Duration animationDuration;
 
-  // Bildirim widget'ının gölge rengi
-  // Varsayılan olarak Colors.grey
-  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Bildirim widget'ının gölge rengi
+  /// Varsayılan olarak Colors.grey
+  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late Color shadowColor = Colors.grey;
 
-  // Bildirimin arkaplan rengi
-  // Varsayılan olarak beyaz olarak ayarlanır
-  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Bildirimin arkaplan rengi
+  /// Varsayılan olarak beyaz olarak ayarlanır
+  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late Color background;
 
-  // İlerleme çubuğunun rengi
-  // Varsayılan olarak mavi
-  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// İlerleme çubuğunun rengi
+  /// Varsayılan olarak mavi
+  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late Color progressIndicatorColor;
 
-  // Bildirim widget'ının kenar yarıçapı
-  // Sadece varsayılan yapıyı kullandığınızda bu parametre ayarlanır
-  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Bildirim widget'ının kenar yarıçapı
+  /// Sadece varsayılan yapıyı kullandığınızda bu parametre ayarlanır
+  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late double radius = 5.0;
 
-  // Bildirimin ne kadar süreceği
-  // Varsayılan olarak 3000 milisaniye
+  /// Bildirimin ne kadar süreceği
+  /// Varsayılan olarak 3000 milisaniye
   final Duration toastDuration;
 
-  // Gölge oluşturmayı etkinleştirme veya devre dışı bırakma
-  // Varsayılan olarak true
-  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Gölge oluşturmayı etkinleştirme veya devre dışı bırakma
+  /// Varsayılan olarak true
+  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late bool enableShadow = true;
 
-  // İlerleme göstergesi oluşturmayı etkinleştirme veya devre dışı bırakma
-  // Varsayılan olarak gösterilir
-  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// İlerleme göstergesi oluşturmayı etkinleştirme veya devre dışı bırakma
+  /// Varsayılan olarak gösterilir
+  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
   late bool showProgressIndicator;
 
-  // Kapat düğmesini görüntüleyin veya gizleyin
-  // Varsayılan olarak kapat düğmesi görüntülenir
-  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Kapat düğmesini görüntüleyin veya gizleyin
+  /// Varsayılan olarak kapat düğmesi görüntülenir
+  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
   final bool displayCloseButton;
 
-  // Kapatma düğmesi olarak gösterilecek widget
-  // Varsayılan olarak kapat düğmesi görüntülenir, eğer istemezseniz closeButton'a null değeri verin
-  // Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Kapatma düğmesi olarak gösterilecek widget
+  /// Varsayılan olarak kapat düğmesi görüntülenir, eğer istemezseniz closeButton'a null değeri verin
+  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
   final Widget Function(void Function() dismissNotification)? closeButton;
 
-  // Kullanıcı kapatma düğmesine bastığında çağrılan fonksiyon
+  /// Kullanıcı kapatma düğmesine bastığında çağrılan fonksiyon
   final Function()? onCloseButtonPressed;
 
-  // İlerleme göstergisi tamamlandıktan sonra bildirimin kapatılması durumunda çağrılan fonksiyon
+  /// İlerleme göstergisi tamamlandıktan sonra bildirimin kapatılması durumunda çağrılan fonksiyon
   final Function()? onProgressFinished;
 
-  // Bildirim türü, her yapılandırmacıda otomatik olarak ayarlanır
-  // Mümkün olan değerler: success, error, info, custom
+  /// Bildirim türü, her yapılandırmacıda otomatik olarak ayarlanır
+  /// Mümkün olan değerler: success, error, info, custom
   late NotificationType notificationType;
 
-  // Bildirim hizalamasının türü
-  // Mümkün olan değerler: top, center, bottom
-  // Varsayılan değer: top
+  /// Bildirim hizalamasının türü
+  /// Mümkün olan değerler: top, center, bottom
+  /// Varsayılan değer: top
   final NotificationPosition notificationPosition;
 
-  // Tıklanabilir inkwell ile görüntülenen eylem bileşeni
-  // Varsayılan olarak action null'dır
+  /// Tıklanabilir inkwell ile görüntülenen eylem bileşeni
+  /// Varsayılan olarak action null'dır
   final Widget? action;
 
-  // Eylem bileşenine tıklandığında çağrılan fonksiyon
-  // action null değilse onActionPressed null olmamalıdır
+  /// Eylem bileşenine tıklandığında çağrılan fonksiyon
+  /// action null değilse onActionPressed null olmamalıdır
   final Function()? onActionPressed;
 
-  // Bildirimin otomatik olarak kapatılıp kapatılmayacağını belirler
-  // Varsayılan olarak autoDismiss == true
+  /// Bildirimin otomatik olarak kapatılıp kapatılmayacağını belirler
+  /// Varsayılan olarak autoDismiss == true
   final bool autoDismiss;
 
-  // Bildirim widget'ının genişliği
+  /// Bildirim widget'ının genişliği
   final double? width;
 
-  // Bildirim widget'ının yüksekliği
+  /// Bildirim widget'ının yüksekliği
   final double? height;
 
-  // Bildirimin dışında tıklanarak veya telefonun geri düğmesine basılarak veya ekrana tıklanarak çağrılan fonksiyon
+  /// Bildirimin dışında tıklanarak veya telefonun geri düğmesine basılarak veya ekrana tıklanarak çağrılan fonksiyon
   final Function()? onDismiss;
 
-  // Eğilimli bir bildiri oluşturur
+  /// Eğilimli bir bildiri oluşturur
   OverlayEntry? overlayEntry;
 
-  // İlerleme göstergesi arka plan rengi
-  // Varsayılan olarak gri
+  /// İlerleme göstergesi arka plan rengi
+  /// Varsayılan olarak gri
   final Color progressIndicatorBackground;
 
-  // Ekranın üzerine bildirimi gösterir
+  /// Ekranın üzerine bildirimi gösterir
   void show(BuildContext context) {
     overlayEntry = _overlayEntryBuilder();
     Overlay.maybeOf(context)?.insert(overlayEntry!);
   }
 
-  // Overlay'ı kapatır
+  /// Overlay'ı kapatır
   void closeOverlay() {
     overlayEntry?.remove();
     overlayEntry = null;
@@ -397,10 +397,10 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
     }
 
     // ! Flutter < 3.0.0 için desteklemek için
-    // T veya T? türündeki bir değeri T? türüne dönüştürmeye yarar
-    //
-    // Bu, artık null olmayan API'leri kullanmaya izin vermek için
-    // `!` ve `?` ile eski sürümleri de desteklemek için kullanılır
+    /// T veya T? türündeki bir değeri T? türüne dönüştürmeye yarar
+    ///
+    /// Bu, artık null olmayan API'leri kullanmaya izin vermek için
+    /// `!` ve `?` ile eski sürümleri de desteklemek için kullanılır
     T? ambiguate<T>(T? value) => value;
 
     ambiguate(WidgetsBinding.instance)?.addPostFrameCallback(
@@ -424,7 +424,7 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
                     color: widget.shadowColor.withOpacity(0.2),
                     spreadRadius: 1,
                     blurRadius: 1,
-                    offset: const Offset(0, 1), // gölgenin pozisyonunu değiştirir
+                    offset: const Offset(0, 1), /// gölgenin pozisyonunu değiştirir
                   ),
                 ]
               : null,
