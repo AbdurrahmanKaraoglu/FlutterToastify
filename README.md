@@ -14,7 +14,7 @@ FlutterToastify, özelleştirilebilir toast benzeri mesajlarla kullanıcı bildi
 dependencies:
   flutter:
     sdk: flutter
-  flutter_toastify: ^1.0.1
+  flutter_toastify: ^1.0.3
 ```
 
 2. Daha sonra, paketi projenize eklemek için `flutter pub get` komutunu çalıştırın.
@@ -125,7 +125,7 @@ FlutterToastify is a Flutter package used to display user notifications with cus
 dependencies:
   flutter:
     sdk: flutter
-  flutter_toastify: ^1.0.1
+  flutter_toastify: ^1.0.3
 ```
 
 2. Next, run `flutter pub get` to fetch the package.

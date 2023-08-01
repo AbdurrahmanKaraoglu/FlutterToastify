@@ -1,8 +1,8 @@
 name: flutter_toastify
 description: A Flutter package for showing toast notifications - Bildirimleri göstermek için bir Flutter paketi
-version: 1.0.1
+version: 1.0.3
 homepage: https://github.com/AbdurrahmanKaraoglu/FlutterToastify
-repository: https://github.com/AbdurrahmanKaraoglu/flutter_toastify.git
+repository: https://github.com/AbdurrahmanKaraoglu/FlutterToastify
  
 
 environment:
@@ -12,6 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+license: MIT
 
 dev_dependencies:
   flutter_test:
