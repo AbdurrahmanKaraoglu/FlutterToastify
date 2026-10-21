@@ -1,19 +1,26 @@
-/// flutter_toastify kütüphanesi
-library flutter_toastify;
+/// Özelleştirilebilir, animasyonlu toast bildirimleri.
+///
+/// Customizable, animated toast notifications.
+library;
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_toastify/components/constants.dart';
 import 'package:flutter_toastify/components/enums.dart';
 import 'package:flutter_toastify/components/extensions.dart';
 import 'package:flutter_toastify/widget/animated_progress_bar.dart';
-import 'package:flutter_toastify/widget/flutter_toastify_conten.dart';
+import 'package:flutter_toastify/widget/flutter_toastify_content.dart';
 
-import 'dart:async';
+export 'package:flutter_toastify/components/enums.dart';
 
- 
-/// ignore: must_be_immutable
+/// Ekranın üzerinde [Overlay] ile gösterilen toast bildirimi.
+///
+/// [show] ile gösterilir, [closeOverlay] ile kapatılır.
 class FlutterToastify extends StatefulWidget {
+  /// [icon] ile özel görünümlü bir bildirim oluşturur.
   FlutterToastify({
-    Key? key,
+    super.key,
     this.title,
     required this.description,
     required this.icon,
@@ -39,13 +46,13 @@ class FlutterToastify extends StatefulWidget {
     this.width,
     this.onDismiss,
     this.progressIndicatorBackground = AppConstants.greyColor,
-  }) : super(key: key) {
-    notificationType = NotificationType.custom;
+  }) : notificationType = NotificationType.custom {
     checkAssertions();
   }
 
+  /// Hazır başarı stiliyle bir bildirim oluşturur.
   FlutterToastify.success({
-    Key? key,
+    super.key,
     this.title,
     required this.description,
     this.background = Colors.white,
@@ -66,15 +73,18 @@ class FlutterToastify extends StatefulWidget {
     this.width,
     this.onDismiss,
     this.progressIndicatorBackground = AppConstants.greyColor,
-  }) : super(key: key) {
-    notificationType = NotificationType.success;
-    progressIndicatorColor = notificationType.color();
-    icon = null;
+  })  : notificationType = NotificationType.success,
+        progressIndicatorColor = NotificationType.success.color(),
+        icon = null,
+        shadowColor = Colors.grey,
+        radius = 5.0,
+        enableShadow = true {
     checkAssertions();
   }
 
+  /// Hazır hata stiliyle bir bildirim oluşturur.
   FlutterToastify.error({
-    Key? key,
+    super.key,
     this.title,
     required this.description,
     this.background = Colors.white,
@@ -95,15 +105,18 @@ class FlutterToastify extends StatefulWidget {
     this.width,
     this.onDismiss,
     this.progressIndicatorBackground = AppConstants.greyColor,
-  }) : super(key: key) {
-    notificationType = NotificationType.error;
-    progressIndicatorColor = notificationType.color();
-    icon = null;
+  })  : notificationType = NotificationType.error,
+        progressIndicatorColor = NotificationType.error.color(),
+        icon = null,
+        shadowColor = Colors.grey,
+        radius = 5.0,
+        enableShadow = true {
     checkAssertions();
   }
 
+  /// Hazır bilgi stiliyle bir bildirim oluşturur.
   FlutterToastify.info({
-    Key? key,
+    super.key,
     this.title,
     required this.description,
     this.background = Colors.white,
@@ -124,10 +137,12 @@ class FlutterToastify extends StatefulWidget {
     this.width,
     this.onDismiss,
     this.progressIndicatorBackground = AppConstants.greyColor,
-  }) : super(key: key) {
-    notificationType = NotificationType.info;
-    progressIndicatorColor = notificationType.color();
-    icon = null;
+  })  : notificationType = NotificationType.info,
+        progressIndicatorColor = NotificationType.info.color(),
+        icon = null,
+        shadowColor = Colors.grey,
+        radius = 5.0,
+        enableShadow = true {
     checkAssertions();
   }
 
@@ -182,7 +197,7 @@ class FlutterToastify extends StatefulWidget {
   final Widget description;
 
   /// Bildirim ikonu, sadece varsayılan yapıyı kullanan diğer bildirim türleri (Success, Info, Error) için gerekli
-  late Widget? icon;
+  final Widget? icon;
 
   /// İkon boyutu, varsayılan olarak 20px
   final double iconSize;
@@ -200,22 +215,22 @@ class FlutterToastify extends StatefulWidget {
   /// Bildirim widget'ının gölge rengi
   /// Varsayılan olarak Colors.grey
   /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
-  late Color shadowColor = Colors.grey;
+  final Color shadowColor;
 
   /// Bildirimin arkaplan rengi
   /// Varsayılan olarak beyaz olarak ayarlanır
   /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
-  late Color background;
+  final Color background;
 
   /// İlerleme çubuğunun rengi
   /// Varsayılan olarak mavi
   /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
-  late Color progressIndicatorColor;
+  final Color progressIndicatorColor;
 
   /// Bildirim widget'ının kenar yarıçapı
   /// Sadece varsayılan yapıyı kullandığınızda bu parametre ayarlanır
   /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
-  late double radius = 5.0;
+  final double radius;
 
   /// Bildirimin ne kadar süreceği
   /// Varsayılan olarak 3000 milisaniye
@@ -224,12 +239,12 @@ class FlutterToastify extends StatefulWidget {
   /// Gölge oluşturmayı etkinleştirme veya devre dışı bırakma
   /// Varsayılan olarak true
   /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
-  late bool enableShadow = true;
+  final bool enableShadow;
 
   /// İlerleme göstergesi oluşturmayı etkinleştirme veya devre dışı bırakma
   /// Varsayılan olarak gösterilir
   /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
-  late bool showProgressIndicator;
+  final bool showProgressIndicator;
 
   /// Kapat düğmesini görüntüleyin veya gizleyin
   /// Varsayılan olarak kapat düğmesi görüntülenir
@@ -249,7 +264,7 @@ class FlutterToastify extends StatefulWidget {
 
   /// Bildirim türü, her yapılandırmacıda otomatik olarak ayarlanır
   /// Mümkün olan değerler: success, error, info, custom
-  late NotificationType notificationType;
+  final NotificationType notificationType;
 
   /// Bildirim hizalamasının türü
   /// Mümkün olan değerler: top, center, bottom
@@ -274,26 +289,41 @@ class FlutterToastify extends StatefulWidget {
   /// Bildirim widget'ının yüksekliği
   final double? height;
 
-  /// Bildirimin dışında tıklanarak veya telefonun geri düğmesine basılarak veya ekrana tıklanarak çağrılan fonksiyon
+  /// Bildirim kapatma düğmesiyle kapatıldığında çağrılan fonksiyon
   final Function()? onDismiss;
 
-  /// Eğilimli bir bildiri oluşturur
-  OverlayEntry? overlayEntry;
+  final _OverlayHandle _overlayHandle = _OverlayHandle();
+
+  /// Bildirim gösteriliyorsa ona ait [OverlayEntry], aksi halde `null`
+  OverlayEntry? get overlayEntry => _overlayHandle.entry;
+
+  /// Bildirim şu anda ekranda mı
+  bool get isShowing => _overlayHandle.entry != null;
 
   /// İlerleme göstergesi arka plan rengi
   /// Varsayılan olarak gri
   final Color progressIndicatorBackground;
 
   /// Ekranın üzerine bildirimi gösterir
+  ///
+  /// Aynı örnek zaten gösteriliyorsa tekrar eklenmez. [context] üstünde
+  /// bir [Overlay] yoksa hiçbir şey yapmaz.
   void show(BuildContext context) {
-    overlayEntry = _overlayEntryBuilder();
-    Overlay.maybeOf(context)?.insert(overlayEntry!);
+    if (isShowing) return;
+    final overlay = Overlay.maybeOf(context, rootOverlay: true);
+    if (overlay == null) return;
+    final entry = _overlayEntryBuilder();
+    _overlayHandle.entry = entry;
+    overlay.insert(entry);
   }
 
   /// Overlay'ı kapatır
   void closeOverlay() {
-    overlayEntry?.remove();
-    overlayEntry = null;
+    final entry = _overlayHandle.entry;
+    if (entry == null) return;
+    _overlayHandle.entry = null;
+    entry.remove();
+    entry.dispose();
   }
 
   OverlayEntry _overlayEntryBuilder() {
@@ -318,28 +348,28 @@ class FlutterToastify extends StatefulWidget {
   FlutterToastifyState createState() => FlutterToastifyState();
 }
 
+/// [FlutterToastify] için durum sınıfı
 class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProviderStateMixin {
-  late Timer closeTimer;
+  /// Otomatik kapanma zamanlayıcısı, `autoDismiss == false` ise `null`
+  Timer? closeTimer;
+
+  /// Giriş/çıkış kaydırma animasyonu
   late Animation<Offset> offsetAnimation;
+
+  /// Kaydırma animasyonunun denetleyicisi
   late AnimationController slideController;
+
+  bool _isClosing = false;
 
   @override
   void initState() {
     super.initState();
-
-    closeTimer = Timer(widget.toastDuration, () {
-      slideController.reverse();
-      slideController.addListener(() {
-        if (slideController.isDismissed) {
-          widget.onProgressFinished?.call();
-          widget.closeOverlay();
-        }
-      });
-    });
-    if (!widget.autoDismiss) {
-      closeTimer.cancel();
-    }
     _initializeAnimation();
+    if (widget.autoDismiss) {
+      closeTimer = Timer(widget.toastDuration, () {
+        _close(widget.onProgressFinished);
+      });
+    }
   }
 
   void _initializeAnimation() {
@@ -348,104 +378,76 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
       vsync: this,
     );
 
-    switch (widget.animation) {
-      case AnimationType.fromLeft:
-        offsetAnimation = Tween<Offset>(
-          begin: const Offset(-2, 0),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: slideController,
-            curve: Curves.ease,
-          ),
-        );
-        break;
-      case AnimationType.fromRight:
-        offsetAnimation = Tween<Offset>(
-          begin: const Offset(2, 0),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: slideController,
-            curve: Curves.ease,
-          ),
-        );
-        break;
-      case AnimationType.fromTop:
-        offsetAnimation = Tween<Offset>(
-          begin: const Offset(0, -7),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: slideController,
-            curve: Curves.ease,
-          ),
-        );
-        break;
-      case AnimationType.fromBottom:
-        offsetAnimation = Tween<Offset>(
-          begin: const Offset(0, 4),
-          end: const Offset(0, 0),
-        ).animate(
-          CurvedAnimation(
-            parent: slideController,
-            curve: Curves.ease,
-          ),
-        );
-        break;
-      default:
-    }
-
-    // ! Flutter < 3.0.0 için desteklemek için
-    /// T veya T? türündeki bir değeri T? türüne dönüştürmeye yarar
-    ///
-    /// Bu, artık null olmayan API'leri kullanmaya izin vermek için
-    /// `!` ve `?` ile eski sürümleri de desteklemek için kullanılır
-    T? ambiguate<T>(T? value) => value;
-
-    ambiguate(WidgetsBinding.instance)?.addPostFrameCallback(
-      (_) => slideController.forward(),
+    final Offset begin = switch (widget.animation) {
+      AnimationType.fromLeft => const Offset(-2, 0),
+      AnimationType.fromRight => const Offset(2, 0),
+      AnimationType.fromTop => const Offset(0, -7),
+      AnimationType.fromBottom => const Offset(0, 4),
+    };
+    offsetAnimation = Tween<Offset>(
+      begin: begin,
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: slideController,
+        curve: Curves.ease,
+      ),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_isClosing) slideController.forward();
+    });
+  }
+
+  /// Çıkış animasyonunu oynatır, ardından bildirimi overlay'dan kaldırır.
+  void _close([void Function()? callback]) {
+    if (_isClosing) return;
+    _isClosing = true;
+    closeTimer?.cancel();
+    callback?.call();
+    slideController.reverse().then((_) {
+      if (mounted) widget.closeOverlay();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.sizeOf(context);
     return SlideTransition(
       position: offsetAnimation,
       child: Container(
-        width: widget.width ?? MediaQuery.of(context).size.width * 0.7,
-        height: widget.height ?? MediaQuery.of(context).size.height * 0.12,
+        width: widget.width ?? screenSize.width * 0.7,
+        height: widget.height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius),
           color: widget.background,
           boxShadow: widget.enableShadow
               ? [
                   BoxShadow(
-                    color: widget.shadowColor.withOpacity(0.2),
+                    color: widget.shadowColor.withValues(alpha: 0.2),
                     spreadRadius: 1,
                     blurRadius: 1,
-                    offset: const Offset(0, 1), /// gölgenin pozisyonunu değiştirir
+                    offset: const Offset(0, 1),
                   ),
                 ]
               : null,
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
-              child: FlutterToastifyContent(
+            _sizedContent(
+              screenSize,
+              FlutterToastifyContent(
                 title: widget.title,
                 description: widget.description,
                 notificationType: widget.notificationType,
                 icon: widget.icon,
                 displayCloseButton: widget.displayCloseButton,
                 closeButton: widget.closeButton,
-                onCloseButtonPressed: () {
+                onCloseButtonPressed: () => _close(() {
                   widget.onCloseButtonPressed?.call();
-                  closeTimer.cancel();
-                  slideController.reverse();
                   widget.onDismiss?.call();
-                  widget.closeOverlay();
-                },
+                }),
                 iconSize: widget.iconSize,
                 action: widget.action,
                 onActionPressed: widget.onActionPressed,
@@ -463,10 +465,25 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
     );
   }
 
+  /// [FlutterToastify.height] verilmişse içerik o yüksekliği doldurur; verilmemişse
+  /// en az ekran yüksekliğinin %12'si kadar olur ve uzun metinde taşmadan büyür.
+  Widget _sizedContent(Size screenSize, Widget content) {
+    if (widget.height != null) return Expanded(child: content);
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: screenSize.height * 0.12),
+      child: IntrinsicHeight(child: content),
+    );
+  }
+
   @override
   void dispose() {
+    closeTimer?.cancel();
     slideController.dispose();
-    closeTimer.cancel();
     super.dispose();
   }
+}
+
+/// Widget'ı değişmez tutarken gösterilen [OverlayEntry]'yi saklar.
+class _OverlayHandle {
+  OverlayEntry? entry;
 }

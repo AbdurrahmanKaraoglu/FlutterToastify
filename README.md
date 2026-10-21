@@ -1,221 +1,101 @@
-Güncellenmiş `readme` dosyası aşağıdaki gibidir:
-
 # FlutterToastify
 
 [![pub package](https://img.shields.io/pub/v/flutter_toastify.svg)](https://pub.dev/packages/flutter_toastify)
 
-FlutterToastify, özelleştirilebilir toast benzeri mesajlarla kullanıcı bildirimleri göstermek için kullanılan bir Flutter paketidir. Bu paket, başarı, hata ve bilgi bildirimlerini isteğe bağlı ilerleme göstergeleri ve özel animasyonlarla göstermenizi sağlar.
+**TR** · FlutterToastify; başarı, hata, bilgi ve özel stillerde, ilerleme çubuklu ve animasyonlu
+toast bildirimleri göstermek için bir Flutter paketidir.
 
-## Kullanım
+**EN** · FlutterToastify is a Flutter package for animated toast notifications with success,
+error, info and custom styles, an optional progress bar and action support.
 
-1. İlk olarak, projenize `flutter_toastify` paketini ekleyin. `pubspec.yaml` dosyasını aşağıdaki gibi düzenleyin:
+## Kurulum / Installation
 
 ```yaml
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_toastify: ^1.0.4
+  flutter_toastify: ^2.0.0
 ```
 
-2. Daha sonra, paketi projenize eklemek için `flutter pub get` komutunu çalıştırın.
+Gereksinim / Requirements: Dart 3.6+, Flutter 3.27+.
 
-3. İşte bir örnek kod:
+## Kullanım / Usage
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_toastify/flutter_toastify.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('FlutterToastify Demo'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            FlutterToastify.success(
-              width: 360,
-              notificationPosition: NotificationPosition.topLeft,
-              animation: AnimationType.fromTop,
-              title: const Text('Güncelleme'),
-              description: const Text('Verileriniz güncellendi'),
-              onDismiss: () {},
-            ).show(context);
-          },
-          child: Text('Bildirim Göster'),
-        ),
-      ),
-    );
-  }
-}
+ElevatedButton(
+  onPressed: () {
+    FlutterToastify.success(
+      width: 360,
+      notificationPosition: NotificationPosition.topLeft,
+      animation: AnimationType.fromTop,
+      title: const Text('Güncelleme / Update'),
+      description: const Text('Verileriniz güncellendi / Your data has been updated'),
+    ).show(context);
+  },
+  child: const Text('Bildirim göster / Show'),
+);
 ```
 
-Bu örnekte, `FlutterToastify.showToast` fonksiyonu, başarı bildirimi göstermek için kullanılmıştır. Bildirimde ilerleme göstergesi ve otomatik kapanma özelliği bulunmaktadır.
-
-## Özellikler
-
-FlutterToastify, kullanıcı bildirimlerini özelleştirilebilir bir şekilde göstermek için bir dizi özellik sunar:
-
-- `FlutterToastify` Sınıfı:
+Hazır stiller / Built-in styles: `FlutterToastify.success`, `FlutterToastify.error`,
+`FlutterToastify.info`. Kendi ikonunuz ve renklerinizle / With your own icon and colors:
 
 ```dart
-class FlutterToastify {
-  FlutterToastify({
-    this.title,
-    @required this.description,
-    this.type = FlutterToastifyType.custom,
-    this.showProgressIndicator = true,
-    this.duration = const Duration(milliseconds: 3000),
-    this.autoDismiss = true,
-    this.onCloseButtonPressed,
-  });
-
-  final Widget title;
-  final Widget description;
-  final FlutterToastifyType type;
-  final bool showProgressIndicator;
-  final Duration duration;
-  final bool autoDismiss;
-  final VoidCallback onCloseButtonPressed;
-}
+FlutterToastify(
+  icon: const Icon(Icons.access_alarm, color: Colors.orange),
+  description: const Text('Yeni sürüm mevcut / A new version is available'),
+  progressIndicatorColor: Colors.orange,
+  notificationPosition: NotificationPosition.bottomRight,
+  animation: AnimationType.fromBottom,
+).show(context);
 ```
 
-- `title`: Bildirim başlığı. Varsayılan olarak `null` ve görüntülenmez.
-- `description`: Bildirim açıklama metni (zorunlu).
-- `type`: Bildirim tipi (`FlutterToastifyType` enumundan). Varsayılan değer `FlutterToastifyType.custom`.
-- `showProgressIndicator`: Bildirimde ilerleme göstergesi gösterilsin mi? Varsayılan değer `true`.
-- `duration`: Bildirimin gösterileceği süre. Varsayılan değer `Duration(milliseconds: 3000)` (3 saniye).
-- `autoDismiss`: Bildirimin belirtilen süre sonra otomatik olarak kapanıp kapanmayacağını belirtir. Varsayılan değer `true`.
-- `onCloseButtonPressed`: Bildirimin kapatma düğmesine basıldığında çağrılacak geri çağırma fonksiyonu.
-
- 
-
-## Lisans
-
-Bu proje MIT Lisansı altında lisanslanmıştır. Daha fazla bilgi için [LICENSE](https://pub.dev/packages/flutter_toastify/license) dosyasını inceleyebilirsiniz.
-
-Sure! Here's the English version of the `readme` file:
-
-# FlutterToastify
-
-[![pub package](https://img.shields.io/pub/v/flutter_toastify.svg)](https://pub.dev/packages/flutter_toastify)
-
-FlutterToastify is a Flutter package used to display user notifications with customizable toast-like messages. This package provides an easy way to show success, error, and info notifications with optional progress indicators and custom animations.
-
-## Usage
-
-1. First, add the `flutter_toastify` package to your project. Edit the `pubspec.yaml` file as follows:
-
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  flutter_toastify: ^1.0.4
-```
-
-2. Next, run `flutter pub get` to fetch the package.
-
-3. Here's an example code:
+Kalıcı bildirim ve özel kapatma düğmesi / Persistent toast with a custom close button:
 
 ```dart
-import 'package:flutter/material.dart';
-import 'package:flutter_toastify/flutter_toastify.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('FlutterToastify Demo'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            FlutterToastify.success(
-              width: 360,
-              notificationPosition: NotificationPosition.topLeft,
-              animation: AnimationType.fromTop,
-              title: const Text('Update'),
-              description: const Text('Your data has been updated'),
-              onDismiss: () {},
-            ).show(context);
-          },
-          child: Text('Show Notification'),
-        ),
-      ),
-    );
-  }
-}
+final toast = FlutterToastify(
+  icon: const Icon(Icons.dashboard_customize_outlined),
+  description: const Text('Panele geçebilirsiniz / You can go to the dashboard'),
+  autoDismiss: false,
+  showProgressIndicator: false, // autoDismiss: false ise zorunlu / required
+  closeButton: (dismiss) => IconButton(onPressed: dismiss, icon: const Icon(Icons.logout)),
+);
+toast.show(context);
+// Kodla kapatmak için / To close programmatically:
+toast.closeOverlay();
 ```
 
-In this example, the `FlutterToastify.showToast` function is used to show a success notification with a progress indicator and auto-dismiss feature.
+## Parametreler / Parameters
 
-## Features
+| Parametre | Varsayılan / Default | Açıklama / Description |
+|---|---|---|
+| `title` | `null` | Başlık widget'ı / Title widget |
+| `description` | zorunlu / required | Açıklama widget'ı / Description widget |
+| `icon` | zorunlu (özel) / required (custom) | Yalnızca `FlutterToastify()` için / Custom constructor only |
+| `notificationPosition` | `topRight` | `center`, `centerLeft`, `centerRight`, `topLeft`, `topCenter`, `topRight`, `bottomLeft`, `bottomCenter`, `bottomRight` |
+| `animation` | `fromRight` | `fromLeft`, `fromRight`, `fromTop`, `fromBottom` (konumla uyumlu olmalı / must match the position) |
+| `animationDuration` | 600 ms | Giriş/çıkış animasyonu / Slide in/out duration |
+| `toastDuration` | 3000 ms | Ekranda kalma süresi / Display duration |
+| `autoDismiss` | `true` | Süre sonunda kendiliğinden kapanır / Auto close after `toastDuration` |
+| `showProgressIndicator` | `true` | İlerleme çubuğu (`autoDismiss` gerekir) / Progress bar (requires `autoDismiss`) |
+| `displayCloseButton` | `true` | Kapatma düğmesini göster / Show the close button |
+| `closeButton` | `null` | `(dismiss) => Widget` özel kapatma düğmesi / Custom close button builder |
+| `action`, `onActionPressed` | `null` | Tıklanabilir eylem; `action` verilirse `onActionPressed` zorunlu / Tappable action |
+| `width`, `height` | ekranın %70'i / en az %12'si | Boyut; `height` verilmezse içeriğe göre büyür / Size; grows with content when `height` is null |
+| `background`, `progressIndicatorColor`, `progressIndicatorBackground` | beyaz / stile göre / gri | Renkler / Colors |
+| `onProgressFinished` | `null` | Süre dolup kapandığında / Called on auto dismiss |
+| `onCloseButtonPressed`, `onDismiss` | `null` | Kapatma düğmesine basıldığında / Called when the close button is pressed |
 
-FlutterToastify provides a set of features to display user notifications in a customizable way:
+Özel kurucuya özgü / Custom constructor only: `shadowColor`, `radius`, `enableShadow`.
 
-- `FlutterToastify` Class:
+## 2.0.0'a geçiş / Migrating to 2.0.0
 
-```dart
-class FlutterToastify {
-  FlutterToastify({
-    this.title,
-    @required this.description,
-    this.type = FlutterToastifyType.custom,
-    this.showProgressIndicator = true,
-    this.duration = const Duration(milliseconds: 3000),
-    this.autoDismiss = true,
-    this.onCloseButtonPressed,
-  });
+- Enum'lar ana kütüphaneden gelir; `package:flutter_toastify/components/enums.dart` importunu
+  kaldırabilirsiniz. / Enums are exported from the main library.
+- `package:flutter_toastify/widget/flutter_toastify_conten.dart` yerine
+  `flutter_toastify_content.dart` kullanın. / Use the corrected file name.
+- Widget alanlarına sonradan değer atanamaz; değerleri kurucuya verin. / Fields are now `final`.
 
-  final Widget title;
-  final Widget description;
-  final FlutterToastifyType type;
-  final bool showProgressIndicator;
-  final Duration duration;
-  final bool autoDismiss;
-  final VoidCallback onCloseButtonPressed;
-}
-```
+## Lisans / License
 
-- `title`: The title of the notification. By default, it's `null` and won't be displayed.
-- `description`: The description text of the notification (required).
-- `type`: The type of notification (from `FlutterToastifyType` enum). The default value is `FlutterToastifyType.custom`.
-- `showProgressIndicator`: Specifies whether to show a progress indicator in the notification. The default value is `true`.
-- `duration`: The duration for which the notification will be displayed. The default value is `Duration(milliseconds: 3000)` (3 seconds).
-- `autoDismiss`: Specifies whether the notification will automatically dismiss after the specified duration. The default value is `true`.
-- `onCloseButtonPressed`: A callback function that will be called when the notification's close button is pressed.
-
- 
-
-## License
-
-This project is licensed under the MIT License. For more information, see the [LICENSE](https://pub.dev/packages/flutter_toastify/license) file.
+MIT — bkz. / see [LICENSE](LICENSE).

@@ -1,4 +1,5 @@
-/// enums.dart
+/// Paket genelinde kullanılan enum tanımları.
+library;
 
 /// Bildirim türlerini tanımlayan enum.
 enum NotificationType {

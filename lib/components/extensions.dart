@@ -26,8 +26,6 @@ extension NotificationPositionExtension on NotificationPosition {
         return Alignment.bottomRight;
       case NotificationPosition.bottomLeft:
         return Alignment.bottomLeft;
-      default:
-        return Alignment.topCenter;
     }
   }
 }
@@ -44,7 +42,7 @@ extension NotificationTypeExtension on NotificationType {
         return AppConstants.errorColor;
       case NotificationType.info:
         return AppConstants.inforColor;
-      default:
+      case NotificationType.custom:
         return Colors.blue;
     }
   }

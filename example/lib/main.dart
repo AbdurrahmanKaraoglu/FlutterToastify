@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_toastify/components/enums.dart';
 import 'package:flutter_toastify/flutter_toastify.dart';
 
 void main() {

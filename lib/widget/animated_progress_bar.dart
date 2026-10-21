@@ -33,11 +33,20 @@ import 'package:flutter/material.dart';
 /// 4. The `build` method returns the `LinearProgressIndicator` widget wrapped inside an `AnimatedBuilder`, which visually shows the animated progress value of the bar.
 /// In conclusion, this code creates an animated progress bar, enhancing user interaction by visually indicating the progress of tasks or loading processes.
 class AnimatedProgressBar extends StatefulWidget {
+  /// Dolu çubuktan boşa doğru [duration] boyunca ilerleyen bir çubuk oluşturur.
   const AnimatedProgressBar({super.key, required this.duration, required this.foregroundColor, required this.backgroundColor});
-  final Color foregroundColor; // İlerleme çubuğunun ön plan rengi. (Foreground color of the progress bar)
-  final Color backgroundColor; // İlerleme çubuğunun arka plan rengi. (Background color of the progress bar)
-  final Duration duration; // İlerleme çubuğunun animasyon süresi. (Animation duration of the progress bar)
-  final double value = 0; // İlerleme çubuğunun başlangıç değeri. (Initial value of the progress bar)
+
+  /// İlerleme çubuğunun ön plan rengi. (Foreground color of the progress bar)
+  final Color foregroundColor;
+
+  /// İlerleme çubuğunun arka plan rengi. (Background color of the progress bar)
+  final Color backgroundColor;
+
+  /// İlerleme çubuğunun animasyon süresi. (Animation duration of the progress bar)
+  final Duration duration;
+
+  /// İlerleme çubuğunun hedef değeri, her zaman 0. (Target value of the progress bar)
+  final double value = 0;
 
   @override
   State<AnimatedProgressBar> createState() => _AnimatedProgressBarState();
@@ -70,9 +79,10 @@ class _AnimatedProgressBarState extends State<AnimatedProgressBar> with SingleTi
   @override
   void didUpdateWidget(AnimatedProgressBar oldWidget) {
     super.didUpdateWidget(oldWidget);
+    _controller.duration = widget.duration;
 
     if (widget.value != oldWidget.value) {
-      double beginValue = valueTween.evaluate(curve);
+      final double beginValue = valueTween.evaluate(curve);
       valueTween = Tween<double>(
         begin: beginValue,
         end: widget.value,
