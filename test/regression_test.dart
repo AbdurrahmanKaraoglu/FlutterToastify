@@ -160,4 +160,46 @@ void main() {
     await tester.pump(_toastDuration);
     await tester.pumpAndSettle();
   });
+
+  testWidgets('yükseklik verilmediğinde metin alt kenara yapışmaz', (tester) async {
+    final toast = FlutterToastify.info(
+      width: 360,
+      title: const Text('Bilgi'),
+      description: const Text('Hesabınız çıkış yapıldığında güncellenecektir. Hesabınız çıkış yapıldığında güncellenecektir.'),
+      action: const Text('Link'),
+      onActionPressed: () {},
+      showProgressIndicator: false,
+      animationDuration: _animationDuration,
+      toastDuration: _toastDuration,
+    );
+    await tester.pumpWidget(_materialApp(toast));
+    await _tapShow(tester);
+
+    final toastRect = tester.getRect(find.byType(FlutterToastify));
+    final titleRect = tester.getRect(find.text('Bilgi'));
+    final linkRect = tester.getRect(find.text('Link'));
+    expect(titleRect.top - toastRect.top, greaterThanOrEqualTo(12));
+    expect(toastRect.bottom - linkRect.bottom, greaterThanOrEqualTo(12));
+
+    await tester.pump(_toastDuration);
+    await tester.pumpAndSettle();
+  });
+
+  testWidgets('sabit yükseklikte içerik boşluğu eklenmez', (tester) async {
+    final toast = FlutterToastify.info(
+      height: 60,
+      description: const Text('Kısa'),
+      showProgressIndicator: false,
+      animationDuration: _animationDuration,
+      toastDuration: _toastDuration,
+    );
+    await tester.pumpWidget(_materialApp(toast));
+    await _tapShow(tester);
+
+    expect(tester.getSize(find.byType(FlutterToastify)).height, 60);
+    expect(tester.takeException(), isNull);
+
+    await tester.pump(_toastDuration);
+    await tester.pumpAndSettle();
+  });
 }

@@ -36,6 +36,10 @@ class AppConstants {
   /// Minimum tap target size for accessibility (Material guideline).
   static const double minTapTargetSize = 48.0;
 
+  /// Yükseklik verilmediğinde bildirim metninin üst ve alt boşluğu.
+  /// Top and bottom padding of the text when no height is given.
+  static const double contentVerticalPadding = 12.0;
+
   /// Renkler
   /// Colors
 

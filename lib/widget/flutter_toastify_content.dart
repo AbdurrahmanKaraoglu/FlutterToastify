@@ -19,7 +19,6 @@ import 'package:flutter_toastify/components/enums.dart';
 
 /// Genel olarak, bu kod, kullanıcı dostu bildirim içeriklerini oluşturmak için kullanılabilir ve bildirimlerin içeriğini düzenleme sürecini kolaylaştırır.
 
-
 /// This code defines a Flutter widget called `FlutterToastifyContent`, which is used to create the content of Flutter Toastify notifications. The widget is responsible for building the visual representation of the notification content and has the following properties:
 
 /// - `title`: A Widget that contains the title of the notification (optional).
@@ -51,7 +50,11 @@ class FlutterToastifyContent extends StatelessWidget {
     this.iconSize = 20,
     this.action,
     this.onActionPressed,
+    this.verticalPadding = 0,
   });
+
+  /// Metin sütununun üst ve alt boşluğu; içerik kenarlara yapışmasın diye kullanılır.
+  final double verticalPadding;
 
   /// Eğer varsa, bildirim başlığı
   final Widget? title;
@@ -118,29 +121,32 @@ class FlutterToastifyContent extends StatelessWidget {
           width: 15,
         ),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (title != null) ...[
-                title!,
-                const SizedBox(
-                  height: 5,
-                ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: verticalPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (title != null) ...[
+                  title!,
+                  const SizedBox(
+                    height: 5,
+                  ),
+                ],
+                description,
+                if (action != null) ...[
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  onActionPressed == null
+                      ? action!
+                      : InkWell(
+                          onTap: onActionPressed,
+                          child: action!,
+                        )
+                ]
               ],
-              description,
-              if (action != null) ...[
-                const SizedBox(
-                  height: 5,
-                ),
-                onActionPressed == null
-                    ? action!
-                    : InkWell(
-                        onTap: onActionPressed,
-                        child: action!,
-                      )
-              ]
-            ],
+            ),
           ),
         ),
         Visibility(
@@ -207,6 +213,3 @@ class FlutterToastifyContent extends StatelessWidget {
     );
   }
 }
-
-
-

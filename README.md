@@ -12,7 +12,7 @@ error, info and custom styles, an optional progress bar and action support.
 
 ```yaml
 dependencies:
-  flutter_toastify: ^2.0.1
+  flutter_toastify: ^2.0.2
 ```
 
 Gereksinim / Requirements: Dart 3.6+, Flutter 3.27+.

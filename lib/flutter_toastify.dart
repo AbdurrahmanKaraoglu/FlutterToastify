@@ -466,6 +466,8 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
                 iconSize: widget.iconSize,
                 action: widget.action,
                 onActionPressed: widget.onActionPressed,
+                // Sabit yükseklik verildiyse yerleşim önceki sürümlerle aynı kalır.
+                verticalPadding: widget.height == null ? AppConstants.contentVerticalPadding : 0,
               ),
             ),
             if (widget.showProgressIndicator)

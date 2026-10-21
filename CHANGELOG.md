@@ -1,3 +1,9 @@
+## 2.0.2
+
+* FIX: `height` verilmediğinde çok satırlı içerik (ör. başlık + açıklama + `action`) bildirimin üst
+  ve alt kenarına yapışıyordu; metne 12 px dikey boşluk eklendi. Sabit `height` verildiğinde
+  yerleşim değişmedi.
+
 ## 2.0.1
 
 * FIX: `CupertinoApp` gibi `MaterialLocalizations` içermeyen uygulamalarda iOS/macOS'ta `show()`
