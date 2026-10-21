@@ -257,10 +257,10 @@ class FlutterToastify extends StatefulWidget {
   final Widget Function(void Function() dismissNotification)? closeButton;
 
   /// Kullanıcı kapatma düğmesine bastığında çağrılan fonksiyon
-  final Function()? onCloseButtonPressed;
+  final VoidCallback? onCloseButtonPressed;
 
   /// İlerleme göstergisi tamamlandıktan sonra bildirimin kapatılması durumunda çağrılan fonksiyon
-  final Function()? onProgressFinished;
+  final VoidCallback? onProgressFinished;
 
   /// Bildirim türü, her yapılandırmacıda otomatik olarak ayarlanır
   /// Mümkün olan değerler: success, error, info, custom
@@ -277,7 +277,7 @@ class FlutterToastify extends StatefulWidget {
 
   /// Eylem bileşenine tıklandığında çağrılan fonksiyon
   /// action null değilse onActionPressed null olmamalıdır
-  final Function()? onActionPressed;
+  final VoidCallback? onActionPressed;
 
   /// Bildirimin otomatik olarak kapatılıp kapatılmayacağını belirler
   /// Varsayılan olarak autoDismiss == true
@@ -290,7 +290,7 @@ class FlutterToastify extends StatefulWidget {
   final double? height;
 
   /// Bildirim kapatma düğmesiyle kapatıldığında çağrılan fonksiyon
-  final Function()? onDismiss;
+  final VoidCallback? onDismiss;
 
   final _OverlayHandle _overlayHandle = _OverlayHandle();
 
@@ -330,14 +330,25 @@ class FlutterToastify extends StatefulWidget {
     return OverlayEntry(
       opaque: false,
       builder: (context) {
+        // AlertDialog bilinçli olarak kullanılmıyor: MaterialLocalizations ister
+        // (CupertinoApp'te iOS/macOS'ta çöker), uygulamanın DialogTheme'ini devralır
+        // ve ekran okuyucuya bildirimi diyalog olarak bildirir.
         return SafeArea(
-          child: AlertDialog(
-            alignment: notificationPosition.alignment,
-            backgroundColor: Colors.transparent,
-            contentPadding: const EdgeInsets.all(0),
-            insetPadding: const EdgeInsets.all(30),
-            elevation: 0,
-            content: this,
+          child: AnimatedPadding(
+            padding: MediaQuery.viewInsetsOf(context) + const EdgeInsets.all(30),
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.decelerate,
+            child: Align(
+              alignment: notificationPosition.alignment,
+              child: Semantics(
+                container: true,
+                liveRegion: true,
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: this,
+                ),
+              ),
+            ),
           ),
         );
       },
@@ -361,9 +372,13 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
 
   bool _isClosing = false;
 
+  /// Bu durumun ait olduğu [OverlayEntry], widget doğrudan ağaca konduysa `null`.
+  OverlayEntry? _ownEntry;
+
   @override
   void initState() {
     super.initState();
+    _ownEntry = widget._overlayHandle.entry;
     _initializeAnimation();
     if (widget.autoDismiss) {
       closeTimer = Timer(widget.toastDuration, () {
@@ -477,6 +492,10 @@ class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProvi
 
   @override
   void dispose() {
+    // Overlay bildirimden önce yok edildiyse (ör. uygulama ağacı değişti) kayıt
+    // temizlenir; aksi halde isShowing true kalır ve bildirim bir daha gösterilemez.
+    final handle = widget._overlayHandle;
+    if (handle.entry != null && handle.entry == _ownEntry) handle.entry = null;
     closeTimer?.cancel();
     slideController.dispose();
     super.dispose();

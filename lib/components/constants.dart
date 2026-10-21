@@ -32,13 +32,21 @@ class AppConstants {
 
   static const double toastWidth = 400;
 
+  /// Erişilebilirlik için en küçük dokunma alanı (Material yönergesi).
+  /// Minimum tap target size for accessibility (Material guideline).
+  static const double minTapTargetSize = 48.0;
+
   /// Renkler
   /// Colors
 
   /// Bilgi mesajlarında kullanılacak renk.
   /// Color used for informational messages.
 
-  static const Color inforColor = Color(0xff0066FF);
+  static const Color infoColor = Color(0xff0066FF);
+
+  /// Eski, yazım hatalı ad; yerine [infoColor] kullanın.
+  @Deprecated('Use AppConstants.infoColor instead.')
+  static const Color inforColor = infoColor;
 
   /// Başarılı işlemlerde kullanılacak renk.
   /// Color used for successful operations or messages.

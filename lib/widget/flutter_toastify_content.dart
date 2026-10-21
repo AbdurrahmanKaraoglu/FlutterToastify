@@ -78,7 +78,7 @@ class FlutterToastifyContent extends StatelessWidget {
   final NotificationType notificationType;
 
   /// Kapatma düğmesine basıldığında çağrılacak fonksiyon
-  final void Function() onCloseButtonPressed;
+  final VoidCallback onCloseButtonPressed;
 
   /// Kapatma düğmesi bileşenini gösterme veya gizleme
   final bool displayCloseButton;
@@ -92,7 +92,7 @@ class FlutterToastifyContent extends StatelessWidget {
 
   /// `action` bileşenine basıldığında çağrılacak fonksiyon
   /// `action != null` olduğunda boş olmamalıdır
-  final Function()? onActionPressed;
+  final VoidCallback? onActionPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -145,32 +145,41 @@ class FlutterToastifyContent extends StatelessWidget {
         ),
         Visibility(
           visible: displayCloseButton,
-          child: closeButton?.call(onCloseButtonPressed) ??
-              InkWell(
-                onTap: onCloseButtonPressed,
-                child: Padding(
-                  padding: isRtl
-                      ? const EdgeInsets.only(
-                          top: AppConstants.verticalPadding,
-                          left: AppConstants.horizontalPadding,
-                        )
-                      : const EdgeInsets.only(
-                          top: AppConstants.verticalPadding,
-                          right: AppConstants.horizontalPadding,
-                        ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.close,
-                        color: Colors.grey,
-                        size: 15,
-                      ),
-                    ],
+          child: closeButton?.call(onCloseButtonPressed) ?? _defaultCloseButton(context),
+        )
+      ],
+    );
+  }
+
+  /// Varsayılan kapatma düğmesi: en az 48x48 dokunma alanı ve ekran okuyucu etiketi.
+  Widget _defaultCloseButton(BuildContext context) {
+    final String label = Localizations.of<MaterialLocalizations>(context, MaterialLocalizations)?.closeButtonTooltip ?? 'Close';
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Flexible(
+          child: Semantics(
+            container: true,
+            button: true,
+            label: label,
+            excludeSemantics: true,
+            child: InkWell(
+              onTap: onCloseButtonPressed,
+              customBorder: const CircleBorder(),
+              child: const SizedBox(
+                width: AppConstants.minTapTargetSize,
+                height: AppConstants.minTapTargetSize,
+                child: Center(
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.grey,
+                    size: 15,
                   ),
                 ),
               ),
-        )
+            ),
+          ),
+        ),
       ],
     );
   }

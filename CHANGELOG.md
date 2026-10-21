@@ -1,3 +1,17 @@
+## 2.0.1
+
+* FIX: `CupertinoApp` gibi `MaterialLocalizations` içermeyen uygulamalarda iOS/macOS'ta `show()`
+  "No MaterialLocalizations found" hatasıyla çöküyordu. Bildirim artık `AlertDialog` yerine
+  bağımsız bir yerleşimle gösteriliyor; uygulamanın `DialogTheme` ayarlarından etkilenmiyor ve
+  ekran okuyucuya diyalog olarak değil canlı bölge (live region) olarak bildiriliyor.
+* FIX: Overlay bildirimden önce yok edilirse (ör. uygulama ağacı değişirse) `isShowing` `true`
+  kalıyor ve aynı bildirim bir daha gösterilemiyordu.
+* FIX: Varsayılan kapatma düğmesinin dokunma alanı en az 48x48 oldu ve ekran okuyucu etiketi eklendi.
+* FIX: İlerleme çubuğu artık süreyle doğrusal ilerliyor (önceden başta ve sonda yavaşlıyordu).
+* `onCloseButtonPressed`, `onProgressFinished`, `onActionPressed` ve `onDismiss` tipleri `VoidCallback?` oldu.
+* `AppConstants.infoColor` eklendi; yazım hatalı `inforColor` ve kullanılmayan
+  `AnimatedProgressBar.value` kullanımdan kalktı (deprecated).
+
 ## 2.0.0
 
 **Kırıcı değişiklikler / Breaking changes**

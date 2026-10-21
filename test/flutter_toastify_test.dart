@@ -181,7 +181,7 @@ void main() {
     );
     expect(
       FlutterToastify.info(description: const Text('x')).progressIndicatorColor,
-      AppConstants.inforColor,
+      AppConstants.infoColor,
     );
   });
 

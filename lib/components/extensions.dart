@@ -41,7 +41,7 @@ extension NotificationTypeExtension on NotificationType {
       case NotificationType.error:
         return AppConstants.errorColor;
       case NotificationType.info:
-        return AppConstants.inforColor;
+        return AppConstants.infoColor;
       case NotificationType.custom:
         return Colors.blue;
     }
