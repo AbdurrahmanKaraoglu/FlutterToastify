@@ -1,6 +1,6 @@
 name: flutter_toastify
 description: Customizable animated toast notifications for Flutter with success, error, info and custom styles, progress indicator and action support.
-version: 2.0.2
+version: 2.0.3
 homepage: https://github.com/AbdurrahmanKaraoglu/FlutterToastify
 repository: https://github.com/AbdurrahmanKaraoglu/FlutterToastify
 issue_tracker: https://github.com/AbdurrahmanKaraoglu/FlutterToastify/issues

@@ -1,69 +1,51 @@
 import 'package:flutter/material.dart';
 
-/// Bu sınıf, uygulama boyunca kullanılacak genel sabit değerleri içerir.
-/// This class contains general constant values to be used throughout the app.
-
+/// Default sizes and colors used by the package.
+///
+/// Paketin kullandığı varsayılan boyutlar ve renkler.
 class AppConstants {
-  /// Genel Stil Ayarları
-  /// General Style Settings
-
-  /// Varsayılan dolgu boşluğu (padding) değeri.
-  /// Default padding value used for spacing elements.
-
+  /// Default padding. / Varsayılan dolgu boşluğu.
   static const double defaultPadding = 16.0;
 
-  /// Dikey yönde dolgu boşluğu (padding) değeri.
-  /// Vertical padding value used for spacing elements vertically.
-
+  /// Default vertical padding. / Varsayılan dikey dolgu boşluğu.
   static const double verticalPadding = 20.0;
 
-  /// Simge (icon) boyutu için varsayılan değer.
-  /// Default icon size value.
-
+  /// Default size of the built-in style icons. / Hazır stil ikonlarının varsayılan boyutu.
   static const double defaultIconSize = 20.0;
 
-  /// Yatay yönde dolgu boşluğu (padding) değeri.
-  /// Horizontal padding value used for spacing elements horizontally.
-
+  /// Default horizontal padding. / Varsayılan yatay dolgu boşluğu.
   static const double horizontalPadding = 10.0;
 
-  /// Bildirim mesajları için kullanılacak genişlik değeri.
-  /// Width value for the toast messages.
-
+  /// Reference width for toast messages. / Bildirimler için başvuru genişliği.
   static const double toastWidth = 400;
 
-  /// Erişilebilirlik için en küçük dokunma alanı (Material yönergesi).
   /// Minimum tap target size for accessibility (Material guideline).
+  ///
+  /// Erişilebilirlik için en küçük dokunma alanı (Material yönergesi).
   static const double minTapTargetSize = 48.0;
 
-  /// Yükseklik verilmediğinde bildirim metninin üst ve alt boşluğu.
   /// Top and bottom padding of the text when no height is given.
+  ///
+  /// Yükseklik verilmediğinde bildirim metninin üst ve alt boşluğu.
   static const double contentVerticalPadding = 12.0;
 
-  /// Renkler
-  /// Colors
-
-  /// Bilgi mesajlarında kullanılacak renk.
-  /// Color used for informational messages.
-
+  /// Color of the info style. / Bilgi stilinin rengi.
   static const Color infoColor = Color(0xff0066FF);
 
+  /// Misspelled old name; use [infoColor] instead.
+  ///
   /// Eski, yazım hatalı ad; yerine [infoColor] kullanın.
   @Deprecated('Use AppConstants.infoColor instead.')
   static const Color inforColor = infoColor;
 
-  /// Başarılı işlemlerde kullanılacak renk.
-  /// Color used for successful operations or messages.
-
+  /// Color of the success style. / Başarı stilinin rengi.
   static const Color successColor = Color(0xff01CB67);
 
-  /// Hata durumlarında kullanılacak renk.
-  /// Color used for error situations or messages.
-
+  /// Color of the error style. / Hata stilinin rengi.
   static const Color errorColor = Color(0xffFE355C);
 
-  /// Gri renkteki arka plan rengi.
-  /// Color used for the grey background.
-
+  /// Light grey used for the divider and progress bar track.
+  ///
+  /// Ayraç ve ilerleme çubuğu arka planı için açık gri.
   static const Color greyColor = Color(0xffF3F3F3);
 }

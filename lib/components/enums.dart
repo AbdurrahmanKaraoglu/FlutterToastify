@@ -1,62 +1,62 @@
-/// Paket genelinde kullanılan enum tanımları.
+/// Enums used across the package. / Paket genelinde kullanılan enum'lar.
 library;
 
-/// Bildirim türlerini tanımlayan enum.
+/// Style of a notification. / Bildirimin türü.
 enum NotificationType {
-  /// Başarılı durum bildirim türü. (Success notification type)
+  /// Success notification type. / Başarılı durum bildirim türü.
   success,
 
-  /// Hata durumu bildirim türü. (Error notification type)
+  /// Error notification type. / Hata durumu bildirim türü.
   error,
 
-  /// Bilgi amaçlı bildirim türü. (Information notification type)
+  /// Information notification type. / Bilgi amaçlı bildirim türü.
   info,
 
-  /// Özel bildirim türü. (Custom notification type)
+  /// Custom notification type. / Özel bildirim türü.
   custom,
 }
 
-/// Animasyon türlerini tanımlayan enum.
+/// Side a notification slides in from. / Bildirimin kayarak geldiği yön.
 enum AnimationType {
-  /// Soldan gelen animasyon türü. (Animation type from the left)
+  /// Animation type from the left. / Soldan gelen animasyon türü.
   fromLeft,
 
-  /// Sağdan gelen animasyon türü. (Animation type from the right)
+  /// Animation type from the right. / Sağdan gelen animasyon türü.
   fromRight,
 
-  /// Yukarıdan gelen animasyon türü. (Animation type from the top)
+  /// Animation type from the top. / Yukarıdan gelen animasyon türü.
   fromTop,
 
-  /// Aşağıdan gelen animasyon türü. (Animation type from the bottom)
+  /// Animation type from the bottom. / Aşağıdan gelen animasyon türü.
   fromBottom,
 }
 
-/// Bildirim konumlarını tanımlayan enum.
+/// Where a notification appears on screen. / Bildirimin ekrandaki konumu.
 enum NotificationPosition {
-  /// Ortada konumlanan bildirim. (Centered notification)
+  /// Centered notification. / Ortada konumlanan bildirim.
   center,
 
-  /// Sağ ortada konumlanan bildirim. (Notification positioned at the center-right)
+  /// Notification positioned at the center-right. / Sağ ortada konumlanan bildirim.
   centerRight,
 
-  /// Sol ortada konumlanan bildirim. (Notification positioned at the center-left)
+  /// Notification positioned at the center-left. / Sol ortada konumlanan bildirim.
   centerLeft,
 
-  /// Üst ortada konumlanan bildirim. (Notification positioned at the top-center)
+  /// Notification positioned at the top-center. / Üst ortada konumlanan bildirim.
   topCenter,
 
-  /// Sağ üstte konumlanan bildirim. (Notification positioned at the top-right)
+  /// Notification positioned at the top-right. / Sağ üstte konumlanan bildirim.
   topRight,
 
-  /// Sol üstte konumlanan bildirim. (Notification positioned at the top-left)
+  /// Notification positioned at the top-left. / Sol üstte konumlanan bildirim.
   topLeft,
 
-  /// Alt ortada konumlanan bildirim. (Notification positioned at the bottom-center)
+  /// Notification positioned at the bottom-center. / Alt ortada konumlanan bildirim.
   bottomCenter,
 
-  /// Sağ altta konumlanan bildirim. (Notification positioned at the bottom-right)
+  /// Notification positioned at the bottom-right. / Sağ altta konumlanan bildirim.
   bottomRight,
 
-  /// Sol altta konumlanan bildirim. (Notification positioned at the bottom-left)
+  /// Notification positioned at the bottom-left. / Sol altta konumlanan bildirim.
   bottomLeft,
 }

@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_toastify/flutter_toastify.dart';
+
+import 'strings.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-/// Kurumsal lacivert tonlu marka rengi.
+/// Corporate navy brand color. / Kurumsal lacivert marka rengi.
 const Color _brand = Color(0xFF1E3A5F);
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  /// [initialLocale] is null by default, so the app follows the device language.
+  const MyApp({super.key, this.initialLocale});
+
+  final Locale? initialLocale;
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Locale? _locale = widget.initialLocale;
 
   ThemeData _theme(Brightness brightness) {
     final scheme = ColorScheme.fromSeed(seedColor: _brand, brightness: brightness);
@@ -42,12 +55,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: _theme(Brightness.light),
       darkTheme: _theme(Brightness.dark),
-      home: const ExampleApp(),
+      locale: _locale,
+      supportedLocales: AppStrings.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      // Desteklenmeyen cihaz dillerinde İngilizceye düşer.
+      localeResolutionCallback: (deviceLocale, supported) => supported.firstWhere(
+        (l) => l.languageCode == deviceLocale?.languageCode,
+        orElse: () => const Locale('en'),
+      ),
+      home: ExampleApp(onLocaleChanged: (locale) => setState(() => _locale = locale)),
     );
   }
 }
 
-/// Örnek bir bildirim senaryosu.
+/// A single notification scenario. / Örnek bir bildirim senaryosu.
 class _Demo {
   const _Demo({
     required this.title,
@@ -64,133 +85,140 @@ class _Demo {
   final void Function(BuildContext context) show;
 }
 
-class ExampleApp extends StatelessWidget {
-  const ExampleApp({super.key});
+List<_Demo> _presets(AppStrings s) => [
+      _Demo(
+        title: s.successTitle,
+        subtitle: s.successSubtitle,
+        icon: Icons.check_circle_outline,
+        color: const Color(0xFF01CB67),
+        show: (context) => FlutterToastify.success(
+          width: 360,
+          notificationPosition: NotificationPosition.topLeft,
+          animation: AnimationType.fromTop,
+          title: Text(s.successToastTitle),
+          description: Text(s.successToastBody),
+        ).show(context),
+      ),
+      _Demo(
+        title: s.errorTitle,
+        subtitle: s.errorSubtitle,
+        icon: Icons.error_outline,
+        color: const Color(0xFFFE355C),
+        show: (context) => FlutterToastify.error(
+          width: 360,
+          notificationPosition: NotificationPosition.topRight,
+          animation: AnimationType.fromRight,
+          title: Text(s.errorToastTitle),
+          description: Text(s.errorToastBody),
+        ).show(context),
+      ),
+      _Demo(
+        title: s.infoTitle,
+        subtitle: s.infoSubtitle,
+        icon: Icons.info_outline,
+        color: const Color(0xFF0066FF),
+        show: (context) => FlutterToastify.info(
+          width: 360,
+          notificationPosition: NotificationPosition.centerLeft,
+          animation: AnimationType.fromLeft,
+          title: Text(s.infoToastTitle),
+          description: Text(s.infoToastBody),
+          showProgressIndicator: false,
+        ).show(context),
+      ),
+    ];
 
-  static final List<_Demo> _presets = [
-    _Demo(
-      title: 'Başarılı işlem',
-      subtitle: 'Sol üst · yukarıdan',
-      icon: Icons.check_circle_outline,
-      color: const Color(0xFF01CB67),
-      show: (context) => FlutterToastify.success(
-        width: 360,
-        notificationPosition: NotificationPosition.topLeft,
-        animation: AnimationType.fromTop,
-        title: const Text('Güncelleme'),
-        description: const Text('Verileriniz güncellendi'),
-      ).show(context),
-    ),
-    _Demo(
-      title: 'Hata bildirimi',
-      subtitle: 'Sağ üst · sağdan',
-      icon: Icons.error_outline,
-      color: const Color(0xFFFE355C),
-      show: (context) => FlutterToastify.error(
-        width: 360,
-        notificationPosition: NotificationPosition.topRight,
-        animation: AnimationType.fromRight,
-        title: const Text('Hata'),
-        description: const Text('Verilerinizi doğrulayın'),
-      ).show(context),
-    ),
-    _Demo(
-      title: 'Bilgilendirme',
-      subtitle: 'Orta sol · soldan · ilerleme çubuksuz',
-      icon: Icons.info_outline,
-      color: const Color(0xFF0066FF),
-      show: (context) => FlutterToastify.info(
-        width: 360,
-        notificationPosition: NotificationPosition.centerLeft,
-        animation: AnimationType.fromLeft,
-        title: const Text('Bilgi'),
-        description: const Text('Hesabınız çıkış yapıldığında güncellenecektir.'),
-        showProgressIndicator: false,
-      ).show(context),
-    ),
-  ];
-
-  static final List<_Demo> _custom = [
-    _Demo(
-      title: 'Özel ikon ve renk',
-      subtitle: 'Orta sağ · sağdan',
-      icon: Icons.system_update_alt,
-      color: Colors.orange,
-      show: (context) => FlutterToastify(
-        width: 360,
-        notificationPosition: NotificationPosition.centerRight,
-        animation: AnimationType.fromRight,
-        title: const Text('Yeni sürüm', style: TextStyle(color: Colors.red)),
-        description: const Text('Size uygun yeni bir sürüm mevcut, lütfen güncelleyin.'),
-        icon: const Icon(Icons.access_alarm, color: Colors.orange),
-        progressIndicatorColor: Colors.orange,
-      ).show(context),
-    ),
-    _Demo(
-      title: 'Eylem bağlantılı',
-      subtitle: 'Sol alt · soldan · tıklanabilir bağlantı',
-      icon: Icons.link,
-      color: const Color(0xFF0066FF),
-      show: (context) => FlutterToastify.info(
-        width: 360,
-        notificationPosition: NotificationPosition.bottomLeft,
-        animation: AnimationType.fromLeft,
-        title: const Text('Bilgi'),
-        description: const Text('Hesabınız çıkış yapıldığında güncellenecektir.'),
-        action: const Text(
-          'Ayrıntıları gör',
-          style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue),
-        ),
-        onActionPressed: () {},
-        showProgressIndicator: false,
-      ).show(context),
-    ),
-    _Demo(
-      title: 'Kalıcı, başlıksız',
-      subtitle: 'Sağ alt · aşağıdan · elle kapatılır',
-      icon: Icons.push_pin_outlined,
-      color: Colors.orange,
-      show: (context) => FlutterToastify(
-        width: 360,
-        notificationPosition: NotificationPosition.bottomRight,
-        animation: AnimationType.fromBottom,
-        description: const Text('Size uygun yeni bir sürüm mevcut, lütfen güncelleyin.'),
-        icon: const Icon(Icons.access_alarm, color: Colors.orange),
-        showProgressIndicator: false,
-        autoDismiss: false,
-      ).show(context),
-    ),
-    _Demo(
-      title: 'Özel kapatma düğmesi',
-      subtitle: 'Sağ üst · sağdan · kalıcı',
-      icon: Icons.logout,
-      color: Colors.purple,
-      show: (context) => FlutterToastify(
-        width: 360,
-        notificationPosition: NotificationPosition.topRight,
-        animation: AnimationType.fromRight,
-        description: const Text('Artık panele geçebilirsiniz.'),
-        icon: const Icon(Icons.dashboard_customize_outlined, color: Colors.purple),
-        showProgressIndicator: false,
-        autoDismiss: false,
-        closeButton: (dismiss) => Padding(
-          padding: const EdgeInsetsDirectional.only(end: 12),
-          child: IconButton.filled(
-            onPressed: dismiss,
-            tooltip: 'Çıkış',
-            style: IconButton.styleFrom(backgroundColor: Colors.purple),
-            icon: const Icon(Icons.logout, color: Colors.white),
+List<_Demo> _custom(AppStrings s) => [
+      _Demo(
+        title: s.customTitle,
+        subtitle: s.customSubtitle,
+        icon: Icons.system_update_alt,
+        color: Colors.orange,
+        show: (context) => FlutterToastify(
+          width: 360,
+          notificationPosition: NotificationPosition.centerRight,
+          animation: AnimationType.fromRight,
+          title: Text(s.newVersionTitle, style: const TextStyle(color: Colors.red)),
+          description: Text(s.newVersionBody),
+          icon: const Icon(Icons.access_alarm, color: Colors.orange),
+          progressIndicatorColor: Colors.orange,
+        ).show(context),
+      ),
+      _Demo(
+        title: s.actionTitle,
+        subtitle: s.actionSubtitle,
+        icon: Icons.link,
+        color: const Color(0xFF0066FF),
+        show: (context) => FlutterToastify.info(
+          width: 360,
+          notificationPosition: NotificationPosition.bottomLeft,
+          animation: AnimationType.fromLeft,
+          title: Text(s.infoToastTitle),
+          description: Text(s.infoToastBody),
+          action: Text(
+            s.actionLink,
+            style: const TextStyle(decoration: TextDecoration.underline, color: Colors.blue),
           ),
-        ),
-      ).show(context),
-    ),
-  ];
+          onActionPressed: () {},
+          showProgressIndicator: false,
+        ).show(context),
+      ),
+      _Demo(
+        title: s.persistentTitle,
+        subtitle: s.persistentSubtitle,
+        icon: Icons.push_pin_outlined,
+        color: Colors.orange,
+        show: (context) => FlutterToastify(
+          width: 360,
+          notificationPosition: NotificationPosition.bottomRight,
+          animation: AnimationType.fromBottom,
+          description: Text(s.newVersionBody),
+          icon: const Icon(Icons.access_alarm, color: Colors.orange),
+          showProgressIndicator: false,
+          autoDismiss: false,
+        ).show(context),
+      ),
+      _Demo(
+        title: s.customCloseTitle,
+        subtitle: s.customCloseSubtitle,
+        icon: Icons.logout,
+        color: Colors.purple,
+        show: (context) => FlutterToastify(
+          width: 360,
+          notificationPosition: NotificationPosition.topRight,
+          animation: AnimationType.fromRight,
+          description: Text(s.dashboardBody),
+          icon: const Icon(Icons.dashboard_customize_outlined, color: Colors.purple),
+          showProgressIndicator: false,
+          autoDismiss: false,
+          closeButton: (dismiss) => Padding(
+            padding: const EdgeInsetsDirectional.only(end: 12),
+            child: IconButton.filled(
+              onPressed: dismiss,
+              tooltip: s.signOut,
+              style: IconButton.styleFrom(backgroundColor: Colors.purple),
+              icon: const Icon(Icons.logout, color: Colors.white),
+            ),
+          ),
+        ).show(context),
+      ),
+    ];
+
+class ExampleApp extends StatelessWidget {
+  const ExampleApp({super.key, required this.onLocaleChanged});
+
+  final ValueChanged<Locale> onLocaleChanged;
 
   @override
   Widget build(BuildContext context) {
+    final s = AppStrings.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('FlutterToastify', style: TextStyle(fontWeight: FontWeight.w600)),
+        actions: [
+          _LanguageMenu(onSelected: onLocaleChanged),
+          const SizedBox(width: 8),
+        ],
       ),
       body: SafeArea(
         child: Center(
@@ -199,13 +227,13 @@ class ExampleApp extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(16, 20, 16, 32),
               children: [
-                const _Header(),
+                _Header(title: s.headerTitle, body: s.headerBody),
                 const SizedBox(height: 24),
-                const _SectionTitle('Hazır stiller'),
-                _DemoGroup(demos: _presets),
+                _SectionTitle(s.presetsSection),
+                _DemoGroup(demos: _presets(s)),
                 const SizedBox(height: 24),
-                const _SectionTitle('Özelleştirme'),
-                _DemoGroup(demos: _custom),
+                _SectionTitle(s.customSection),
+                _DemoGroup(demos: _custom(s)),
               ],
             ),
           ),
@@ -215,8 +243,47 @@ class ExampleApp extends StatelessWidget {
   }
 }
 
+/// App bar language picker. / Uygulama çubuğundaki dil seçici.
+class _LanguageMenu extends StatelessWidget {
+  const _LanguageMenu({required this.onSelected});
+
+  final ValueChanged<Locale> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = AppStrings.of(context);
+    final current = Localizations.localeOf(context).languageCode;
+    return PopupMenuButton<Locale>(
+      tooltip: s.language,
+      onSelected: onSelected,
+      itemBuilder: (context) => [
+        for (final locale in AppStrings.supportedLocales)
+          CheckedPopupMenuItem<Locale>(
+            value: locale,
+            checked: locale.languageCode == current,
+            child: Text(AppStrings.languageName(locale)),
+          ),
+      ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.translate, size: 20),
+            const SizedBox(width: 6),
+            Text(current.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.w600)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _Header extends StatelessWidget {
-  const _Header();
+  const _Header({required this.title, required this.body});
+
+  final String title;
+  final String body;
 
   @override
   Widget build(BuildContext context) {
@@ -248,12 +315,12 @@ class _Header extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Bildirim bileşeni',
+                  title,
                   style: theme.textTheme.titleMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Bir senaryoya dokunarak bildirimi canlı olarak görüntüleyin.',
+                  body,
                   style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white70),
                 ),
               ],
@@ -268,6 +335,7 @@ class _Header extends StatelessWidget {
 class _SectionTitle extends StatelessWidget {
   const _SectionTitle(this.text);
 
+  /// Already upper case: Dart's toUpperCase() is not Turkish-aware (i → I instead of İ).
   final String text;
 
   @override
@@ -276,7 +344,7 @@ class _SectionTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 4, bottom: 8),
       child: Text(
-        text.toUpperCase(),
+        text,
         style: theme.textTheme.labelMedium?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
           fontWeight: FontWeight.w600,

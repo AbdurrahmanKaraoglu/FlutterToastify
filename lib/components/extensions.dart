@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_toastify/components/constants.dart';
 import 'package:flutter_toastify/components/enums.dart';
 
-/// Bildirim konumları için Extension
+/// Maps a [NotificationPosition] to an [Alignment].
+///
+/// [NotificationPosition] değerini [Alignment] değerine çevirir.
 extension NotificationPositionExtension on NotificationPosition {
-  /// Bu extension, her bir NotificationPosition değerini karşılık gelen Alignment değerine dönüştürür.
-  /// This extension converts each NotificationPosition value to the corresponding Alignment value.
+  /// The matching [Alignment]. / Karşılık gelen [Alignment].
   Alignment get alignment {
     switch (this) {
       case NotificationPosition.center:
@@ -30,10 +31,11 @@ extension NotificationPositionExtension on NotificationPosition {
   }
 }
 
-/// Bildirim tipleri için Extension
+/// Maps a [NotificationType] to its color.
+///
+/// [NotificationType] değerini rengine çevirir.
 extension NotificationTypeExtension on NotificationType {
-  /// Bu extension, her bir NotificationType değerini AppConstants sınıfında tanımlı renklerle eşleştirir ve ilgili rengi döndürür.
-  /// This extension maps each NotificationType value to the corresponding color defined in the AppConstants class and returns the associated color.
+  /// The style color from [AppConstants]. / [AppConstants] içindeki stil rengi.
   Color color() {
     switch (this) {
       case NotificationType.success:

@@ -2,42 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_toastify/components/constants.dart';
 import 'package:flutter_toastify/components/enums.dart';
 
-/// Bu kod, bir bildirim içeriği gösteren Flutter Toastify uyarılarını oluşturan `FlutterToastifyContent` adlı bir widget sınıfını tanımlar. Bu widget, bildirimlerin içeriğini oluşturmak için kullanılır ve şu özelliklere sahiptir:
-
-/// - `title`: Bildirim başlığını içeren bir Widget (isteğe bağlı).
-/// - `description`: Bildirim açıklamasını içeren bir Widget (zorunlu).
-/// - `icon`: Bildirimde gösterilecek simgeyi içeren bir Widget (isteğe bağlı).
-/// - `iconSize`: Simge boyutunu piksel cinsinden belirten bir değer (varsayılan olarak 20).
-/// - `notificationType`: Bildirim türünü belirleyen `NotificationType` enum değeri (SUCCESS, ERROR, INFO, CUSTOM).
-/// - `onCloseButtonPressed`: Kapatma düğmesine basıldığında çağrılacak fonksiyon.
-/// - `displayCloseButton`: Kapatma düğmesini gösterme veya gizleme durumunu belirleyen bir boolean değer.
-/// - `closeButton`: Kapatma düğmesi için özel olarak belirtilen bir Widget (isteğe bağlı).
-/// - `action`: Tıklanabilir mürekkep ile render edilen bir eylem bileşeni (isteğe bağlı).
-/// - `onActionPressed`: `action` bileşeni için tetikleyici fonksiyon (action != null olduğunda boş olmamalıdır).
-
-/// `FlutterToastifyContent` widget'ı, bildirim içeriğini düzenlemek için bir `Row` içinde birkaç alt bileşeni düzenler. Bildirim türüne göre, simge alanı doğru simgeyle değiştirilir ve bildirim içeriği görsel olarak oluşturulur. Aynı zamanda kapatma düğmesi ve opsiyonel eylem bileşeni de bu içeriğe eklenir.
-
-/// Genel olarak, bu kod, kullanıcı dostu bildirim içeriklerini oluşturmak için kullanılabilir ve bildirimlerin içeriğini düzenleme sürecini kolaylaştırır.
-
-/// This code defines a Flutter widget called `FlutterToastifyContent`, which is used to create the content of Flutter Toastify notifications. The widget is responsible for building the visual representation of the notification content and has the following properties:
-
-/// - `title`: A Widget that contains the title of the notification (optional).
-/// - `description`: A Widget that contains the description of the notification (required).
-/// - `icon`: A Widget that represents the icon to be displayed in the notification (optional).
-/// - `iconSize`: A value that determines the size of the icon in pixels (default is 20).
-/// - `notificationType`: A `NotificationType` enum value that specifies the type of the notification (SUCCESS, ERROR, INFO, CUSTOM).
-/// - `onCloseButtonPressed`: A function that will be called when the close button is pressed.
-/// - `displayCloseButton`: A boolean value that determines whether to display the close button or not.
-/// - `closeButton`: A custom Widget specifically provided for the close button (optional).
-/// - `action`: A clickable ink renderable action component (optional).
-/// - `onActionPressed`: A trigger function for the `action` component (should not be empty when `action != null`).
-
-/// The `FlutterToastifyContent` widget organizes the notification content within a `Row` with several sub-components. Depending on the notification type, the icon area is replaced with the appropriate icon, and the visual representation of the notification content is built. Additionally, the close button and optional action component are also included in this content.
-
-/// In conclusion, this code can be used to create user-friendly notification contents and simplifies the process of composing the content for notifications.
-
+/// The inner layout of a notification: icon, divider, title, description,
+/// optional action and close button. Used by `FlutterToastify`; you rarely
+/// need it directly.
+///
+/// Bildirimin iç yerleşimi: ikon, ayraç, başlık, açıklama, isteğe bağlı eylem
+/// ve kapatma düğmesi. `FlutterToastify` tarafından kullanılır.
 class FlutterToastifyContent extends StatelessWidget {
-  /// Bildirim içeriğini oluşturur.
+  /// Creates the notification content. / Bildirim içeriğini oluşturur.
   const FlutterToastifyContent({
     super.key,
     this.title,
@@ -53,48 +25,41 @@ class FlutterToastifyContent extends StatelessWidget {
     this.verticalPadding = 0,
   });
 
-  /// Metin sütununun üst ve alt boşluğu; içerik kenarlara yapışmasın diye kullanılır.
+  /// Top and bottom padding of the text column.
+  ///
+  /// Metin sütununun üst ve alt boşluğu.
   final double verticalPadding;
 
-  /// Eğer varsa, bildirim başlığı
+  /// Optional title. / İsteğe bağlı başlık.
   final Widget? title;
 
-  /// Bildirim açıklaması
+  /// Main content. / Ana içerik.
   final Widget description;
 
-  /// Bildirim simgesi
+  /// Icon of a custom notification. / Özel bildirimin ikonu.
   final Widget? icon;
 
-  /// Simge boyutu (piksel cinsinden)
+  /// Size of the built-in style icons. / Hazır stil ikonlarının boyutu.
   final double iconSize;
 
-  /// Bildirim tipi, her bir yapılandırmada otomatik olarak ayarlanacaktır
-  /// Mümkün değerler:
-  ///```dart
-  ///{
-  ///SUCCESS,
-  ///ERROR,
-  ///INFO,
-  ///CUSTOM
-  ///}
-  ///```
+  /// Style that decides which icon is shown. / Hangi ikonun gösterileceğini belirleyen tür.
   final NotificationType notificationType;
 
-  /// Kapatma düğmesine basıldığında çağrılacak fonksiyon
+  /// Called when the close button is pressed. / Kapatma düğmesine basıldığında çağrılır.
   final VoidCallback onCloseButtonPressed;
 
-  /// Kapatma düğmesi bileşenini gösterme veya gizleme
+  /// Whether to show the close button. / Kapatma düğmesi gösterilsin mi.
   final bool displayCloseButton;
 
-  /// Kapatma düğmesi bileşeni, varsayılan olarak `action == null`
+  /// Builds a custom close button; null uses the default one.
+  ///
+  /// Özel kapatma düğmesi oluşturur; `null` ise varsayılan kullanılır.
   final Widget Function(void Function() dismissNotification)? closeButton;
 
-  /// Tıklanabilir mürekkep ile render edilen eylem bileşeni
-  /// varsayılan olarak `action == null`
+  /// Optional tappable widget under the description. / Açıklama altındaki isteğe bağlı tıklanabilir bileşen.
   final Widget? action;
 
-  /// `action` bileşenine basıldığında çağrılacak fonksiyon
-  /// `action != null` olduğunda boş olmamalıdır
+  /// Called when [action] is tapped. / [action] tıklandığında çağrılır.
   final VoidCallback? onActionPressed;
 
   @override
@@ -157,7 +122,9 @@ class FlutterToastifyContent extends StatelessWidget {
     );
   }
 
-  /// Varsayılan kapatma düğmesi: en az 48x48 dokunma alanı ve ekran okuyucu etiketi.
+  /// Default close button: at least 48x48 with a localized screen reader label.
+  ///
+  /// Varsayılan kapatma düğmesi: en az 48x48, ekran okuyucu etiketli.
   Widget _defaultCloseButton(BuildContext context) {
     final String label = Localizations.of<MaterialLocalizations>(context, MaterialLocalizations)?.closeButtonTooltip ?? 'Close';
     return Column(

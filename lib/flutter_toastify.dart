@@ -1,6 +1,6 @@
-/// Özelleştirilebilir, animasyonlu toast bildirimleri.
+/// Customizable, animated toast notifications for Flutter.
 ///
-/// Customizable, animated toast notifications.
+/// Flutter için özelleştirilebilir, animasyonlu toast bildirimleri.
 library;
 
 import 'dart:async';
@@ -14,11 +14,25 @@ import 'package:flutter_toastify/widget/flutter_toastify_content.dart';
 
 export 'package:flutter_toastify/components/enums.dart';
 
-/// Ekranın üzerinde [Overlay] ile gösterilen toast bildirimi.
+/// A toast notification shown above the app through the root [Overlay].
 ///
-/// [show] ile gösterilir, [closeOverlay] ile kapatılır.
+/// Create one with [FlutterToastify.success], [FlutterToastify.error],
+/// [FlutterToastify.info] or the custom [FlutterToastify.new] constructor,
+/// display it with [show] and remove it early with [closeOverlay].
+///
+/// ```dart
+/// FlutterToastify.success(
+///   title: const Text('Update'),
+///   description: const Text('Your data has been updated'),
+/// ).show(context);
+/// ```
+///
+/// Kök [Overlay] üzerinde gösterilen toast bildirimi. Hazır kuruculardan
+/// biriyle oluşturulur, [show] ile gösterilir, [closeOverlay] ile kapatılır.
 class FlutterToastify extends StatefulWidget {
-  /// [icon] ile özel görünümlü bir bildirim oluşturur.
+  /// Creates a notification with your own [icon] and colors.
+  ///
+  /// [icon] ve renklerle özel görünümlü bir bildirim oluşturur.
   FlutterToastify({
     super.key,
     this.title,
@@ -50,7 +64,9 @@ class FlutterToastify extends StatefulWidget {
     checkAssertions();
   }
 
-  /// Hazır başarı stiliyle bir bildirim oluşturur.
+  /// Creates a notification in the built-in success style (green).
+  ///
+  /// Hazır başarı (yeşil) stiliyle bir bildirim oluşturur.
   FlutterToastify.success({
     super.key,
     this.title,
@@ -82,7 +98,9 @@ class FlutterToastify extends StatefulWidget {
     checkAssertions();
   }
 
-  /// Hazır hata stiliyle bir bildirim oluşturur.
+  /// Creates a notification in the built-in error style (red).
+  ///
+  /// Hazır hata (kırmızı) stiliyle bir bildirim oluşturur.
   FlutterToastify.error({
     super.key,
     this.title,
@@ -114,7 +132,9 @@ class FlutterToastify extends StatefulWidget {
     checkAssertions();
   }
 
-  /// Hazır bilgi stiliyle bir bildirim oluşturur.
+  /// Creates a notification in the built-in info style (blue).
+  ///
+  /// Hazır bilgi (mavi) stiliyle bir bildirim oluşturur.
   FlutterToastify.info({
     super.key,
     this.title,
@@ -146,7 +166,11 @@ class FlutterToastify extends StatefulWidget {
     checkAssertions();
   }
 
-  /// Farklı seçeneklerin sağlanmasını sağlamak için bir dizi kontrol gerçekleştirir
+  /// Asserts (in debug mode) that the options are consistent: a progress
+  /// indicator needs [autoDismiss], an [action] needs [onActionPressed], and
+  /// [animation] must come from a side that matches [notificationPosition].
+  ///
+  /// Seçeneklerin tutarlılığını (debug modda) doğrular.
   void checkAssertions() {
     if (showProgressIndicator) {
       assert(autoDismiss != false);
@@ -190,124 +214,163 @@ class FlutterToastify extends StatefulWidget {
     }
   }
 
-  /// Bildirim başlığı widget'ı
+  /// Optional title shown above [description].
+  ///
+  /// [description] üstünde gösterilen isteğe bağlı başlık.
   final Widget? title;
 
-  /// Bildirim açıklama widget'ı
+  /// Main content of the notification.
+  ///
+  /// Bildirimin ana içeriği.
   final Widget description;
 
-  /// Bildirim ikonu, sadece varsayılan yapıyı kullanan diğer bildirim türleri (Success, Info, Error) için gerekli
+  /// Leading icon of a custom notification. Built-in styles use their own icon.
+  ///
+  /// Özel bildirimin ikonu; hazır stiller kendi ikonlarını kullanır.
   final Widget? icon;
 
-  /// İkon boyutu, varsayılan olarak 20px
+  /// Size of the built-in style icons. Defaults to 20.
+  ///
+  /// Hazır stil ikonlarının boyutu, varsayılan 20.
   final double iconSize;
 
-  /// Bildirime uygulanan animasyon türü
-  /// Mümkün olan değerler:
-  /// fromLeft, fromRight, fromTop, fromBottom
-  /// Varsayılan değer: fromRight
+  /// Side the notification slides in from. Defaults to [AnimationType.fromRight].
+  ///
+  /// Bildirimin kayarak geldiği yön, varsayılan [AnimationType.fromRight].
   final AnimationType animation;
 
-  /// Animasyon süresi
-  /// Varsayılan değer: Duration(milliseconds: 600)
+  /// Duration of the slide in and slide out animation. Defaults to 600 ms.
+  ///
+  /// Giriş ve çıkış animasyonunun süresi, varsayılan 600 ms.
   final Duration animationDuration;
 
-  /// Bildirim widget'ının gölge rengi
-  /// Varsayılan olarak Colors.grey
-  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Shadow color. Defaults to [Colors.grey]; fixed for built-in styles.
+  ///
+  /// Gölge rengi, varsayılan gri; hazır stillerde değiştirilemez.
   final Color shadowColor;
 
-  /// Bildirimin arkaplan rengi
-  /// Varsayılan olarak beyaz olarak ayarlanır
-  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Background color. Defaults to [Colors.white].
+  ///
+  /// Arka plan rengi, varsayılan beyaz.
   final Color background;
 
-  /// İlerleme çubuğunun rengi
-  /// Varsayılan olarak mavi
-  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Progress bar color. Defaults to blue; built-in styles use their own color.
+  ///
+  /// İlerleme çubuğu rengi, varsayılan mavi; hazır stiller kendi rengini kullanır.
   final Color progressIndicatorColor;
 
-  /// Bildirim widget'ının kenar yarıçapı
-  /// Sadece varsayılan yapıyı kullandığınızda bu parametre ayarlanır
-  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Corner radius. Defaults to 5; fixed for built-in styles.
+  ///
+  /// Köşe yarıçapı, varsayılan 5; hazır stillerde değiştirilemez.
   final double radius;
 
-  /// Bildirimin ne kadar süreceği
-  /// Varsayılan olarak 3000 milisaniye
+  /// How long the notification stays on screen when [autoDismiss] is true.
+  /// Defaults to 3 seconds.
+  ///
+  /// [autoDismiss] açıkken ekranda kalma süresi, varsayılan 3 saniye.
   final Duration toastDuration;
 
-  /// Gölge oluşturmayı etkinleştirme veya devre dışı bırakma
-  /// Varsayılan olarak true
-  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Whether to draw a shadow. Defaults to true; fixed for built-in styles.
+  ///
+  /// Gölge çizilsin mi, varsayılan true; hazır stillerde değiştirilemez.
   final bool enableShadow;
 
-  /// İlerleme göstergesi oluşturmayı etkinleştirme veya devre dışı bırakma
-  /// Varsayılan olarak gösterilir
-  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Whether to show the remaining time bar. Requires [autoDismiss].
+  /// Defaults to true.
+  ///
+  /// Kalan süre çubuğu gösterilsin mi; [autoDismiss] gerektirir, varsayılan true.
   final bool showProgressIndicator;
 
-  /// Kapat düğmesini görüntüleyin veya gizleyin
-  /// Varsayılan olarak kapat düğmesi görüntülenir
-  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Whether to show the close button. Defaults to true.
+  ///
+  /// Kapatma düğmesi gösterilsin mi, varsayılan true.
   final bool displayCloseButton;
 
-  /// Kapatma düğmesi olarak gösterilecek widget
-  /// Varsayılan olarak kapat düğmesi görüntülenir, eğer istemezseniz closeButton'a null değeri verin
-  /// Success, Info, Error türü yapılar için bu parametre değiştirilemez
+  /// Builds a custom close button. Call the given `dismissNotification`
+  /// callback to close the notification. When null, a default 48x48 close
+  /// button with a localized screen reader label is used.
+  ///
+  /// Özel kapatma düğmesi oluşturur; kapatmak için verilen fonksiyonu çağırın.
+  /// `null` ise varsayılan düğme kullanılır.
   final Widget Function(void Function() dismissNotification)? closeButton;
 
-  /// Kullanıcı kapatma düğmesine bastığında çağrılan fonksiyon
+  /// Called when the user presses the close button.
+  ///
+  /// Kullanıcı kapatma düğmesine bastığında çağrılır.
   final VoidCallback? onCloseButtonPressed;
 
-  /// İlerleme göstergisi tamamlandıktan sonra bildirimin kapatılması durumunda çağrılan fonksiyon
+  /// Called when the notification closes itself after [toastDuration].
+  ///
+  /// Bildirim süre dolup kendiliğinden kapandığında çağrılır.
   final VoidCallback? onProgressFinished;
 
-  /// Bildirim türü, her yapılandırmacıda otomatik olarak ayarlanır
-  /// Mümkün olan değerler: success, error, info, custom
+  /// Style of the notification, set by the constructor that was used.
+  ///
+  /// Bildirimin türü; kullanılan kurucu tarafından belirlenir.
   final NotificationType notificationType;
 
-  /// Bildirim hizalamasının türü
-  /// Mümkün olan değerler: top, center, bottom
-  /// Varsayılan değer: top
+  /// Where the notification appears on screen.
+  /// Defaults to [NotificationPosition.topRight].
+  ///
+  /// Bildirimin ekrandaki konumu, varsayılan [NotificationPosition.topRight].
   final NotificationPosition notificationPosition;
 
-  /// Tıklanabilir inkwell ile görüntülenen eylem bileşeni
-  /// Varsayılan olarak action null'dır
+  /// Optional tappable widget shown under [description], such as a link.
+  ///
+  /// [description] altında gösterilen isteğe bağlı tıklanabilir bileşen.
   final Widget? action;
 
-  /// Eylem bileşenine tıklandığında çağrılan fonksiyon
-  /// action null değilse onActionPressed null olmamalıdır
+  /// Called when [action] is tapped. Required when [action] is set.
+  ///
+  /// [action] tıklandığında çağrılır; [action] verilirse zorunludur.
   final VoidCallback? onActionPressed;
 
-  /// Bildirimin otomatik olarak kapatılıp kapatılmayacağını belirler
-  /// Varsayılan olarak autoDismiss == true
+  /// Whether the notification closes itself after [toastDuration].
+  /// Defaults to true.
+  ///
+  /// Bildirim süre dolunca kendiliğinden kapansın mı, varsayılan true.
   final bool autoDismiss;
 
-  /// Bildirim widget'ının genişliği
+  /// Width of the notification. Defaults to 70% of the screen width.
+  ///
+  /// Bildirimin genişliği, varsayılan ekran genişliğinin %70'i.
   final double? width;
 
-  /// Bildirim widget'ının yüksekliği
+  /// Fixed height of the notification. When null, it is at least 12% of the
+  /// screen height and grows with its content.
+  ///
+  /// Sabit yükseklik; `null` ise en az ekranın %12'si olur ve içeriğe göre büyür.
   final double? height;
 
-  /// Bildirim kapatma düğmesiyle kapatıldığında çağrılan fonksiyon
+  /// Called when the notification is closed with the close button.
+  ///
+  /// Bildirim kapatma düğmesiyle kapatıldığında çağrılır.
   final VoidCallback? onDismiss;
 
   final _OverlayHandle _overlayHandle = _OverlayHandle();
 
-  /// Bildirim gösteriliyorsa ona ait [OverlayEntry], aksi halde `null`
+  /// The [OverlayEntry] of the notification while it is shown, otherwise null.
+  ///
+  /// Bildirim gösterilirken ona ait [OverlayEntry], aksi halde `null`.
   OverlayEntry? get overlayEntry => _overlayHandle.entry;
 
-  /// Bildirim şu anda ekranda mı
+  /// Whether this notification is currently shown.
+  ///
+  /// Bildirim şu anda ekranda mı.
   bool get isShowing => _overlayHandle.entry != null;
 
-  /// İlerleme göstergesi arka plan rengi
-  /// Varsayılan olarak gri
+  /// Track color of the progress bar. Defaults to light grey.
+  ///
+  /// İlerleme çubuğunun arka plan rengi, varsayılan açık gri.
   final Color progressIndicatorBackground;
 
-  /// Ekranın üzerine bildirimi gösterir
+  /// Shows the notification above the app.
   ///
-  /// Aynı örnek zaten gösteriliyorsa tekrar eklenmez. [context] üstünde
-  /// bir [Overlay] yoksa hiçbir şey yapmaz.
+  /// Does nothing if this instance is already shown or there is no [Overlay]
+  /// above [context].
+  ///
+  /// Bildirimi gösterir. Zaten gösteriliyorsa ya da [context] üstünde bir
+  /// [Overlay] yoksa hiçbir şey yapmaz.
   void show(BuildContext context) {
     if (isShowing) return;
     final overlay = Overlay.maybeOf(context, rootOverlay: true);
@@ -317,7 +380,9 @@ class FlutterToastify extends StatefulWidget {
     overlay.insert(entry);
   }
 
-  /// Overlay'ı kapatır
+  /// Removes the notification immediately, without the slide out animation.
+  ///
+  /// Bildirimi çıkış animasyonu olmadan hemen kaldırır.
   void closeOverlay() {
     final entry = _overlayHandle.entry;
     if (entry == null) return;
@@ -359,15 +424,17 @@ class FlutterToastify extends StatefulWidget {
   FlutterToastifyState createState() => FlutterToastifyState();
 }
 
-/// [FlutterToastify] için durum sınıfı
+/// State of a [FlutterToastify]. / [FlutterToastify] için durum sınıfı.
 class FlutterToastifyState extends State<FlutterToastify> with SingleTickerProviderStateMixin {
-  /// Otomatik kapanma zamanlayıcısı, `autoDismiss == false` ise `null`
+  /// Auto dismiss timer, null when `autoDismiss` is false.
+  ///
+  /// Otomatik kapanma zamanlayıcısı; `autoDismiss` kapalıysa `null`.
   Timer? closeTimer;
 
-  /// Giriş/çıkış kaydırma animasyonu
+  /// Slide in and slide out animation. / Giriş ve çıkış kaydırma animasyonu.
   late Animation<Offset> offsetAnimation;
 
-  /// Kaydırma animasyonunun denetleyicisi
+  /// Controller of [offsetAnimation]. / [offsetAnimation] denetleyicisi.
   late AnimationController slideController;
 
   bool _isClosing = false;

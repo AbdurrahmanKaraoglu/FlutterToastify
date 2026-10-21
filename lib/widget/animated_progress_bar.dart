@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
-/// Bildirimin kalan süresini gösteren, doludan boşa doğru [duration] boyunca
-/// sabit hızla ilerleyen çubuk.
-///
 /// A bar that empties at a constant rate over [duration], showing the
 /// remaining display time of a notification.
+///
+/// Bildirimin kalan süresini gösteren, [duration] boyunca sabit hızla boşalan çubuk.
 class AnimatedProgressBar extends StatefulWidget {
-  /// Dolu çubuktan boşa doğru [duration] boyunca ilerleyen bir çubuk oluşturur.
+  /// Creates a bar that empties over [duration]. / [duration] boyunca boşalan bir çubuk oluşturur.
   const AnimatedProgressBar({super.key, required this.duration, required this.foregroundColor, required this.backgroundColor});
 
-  /// İlerleme çubuğunun ön plan rengi. (Foreground color of the progress bar)
+  /// Foreground color of the progress bar. / İlerleme çubuğunun ön plan rengi.
   final Color foregroundColor;
 
-  /// İlerleme çubuğunun arka plan rengi. (Background color of the progress bar)
+  /// Background color of the progress bar. / İlerleme çubuğunun arka plan rengi.
   final Color backgroundColor;
 
-  /// İlerleme çubuğunun animasyon süresi. (Animation duration of the progress bar)
+  /// Animation duration of the progress bar. / İlerleme çubuğunun animasyon süresi.
   final Duration duration;
 
-  /// Kullanılmıyor; çubuk her zaman 0'a doğru ilerler. (Unused, the bar always runs to 0)
+  /// Unused, the bar always runs to 0. / Kullanılmıyor; çubuk her zaman 0'a doğru ilerler.
   @Deprecated('Unused. The bar always runs to 0. Will be removed in the next major version.')
   final double value = 0;
 
