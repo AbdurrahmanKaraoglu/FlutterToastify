@@ -31,7 +31,7 @@ ve özel kapatma düğmeli animasyonlu toast bildirimleri. Bağımlılığı yok
 
 ```yaml
 dependencies:
-  flutter_toastify: ^2.0.4
+  flutter_toastify: ^2.0.5
 ```
 
 Requirements / Gereksinim: Dart 3.6+, Flutter 3.27+.
@@ -120,17 +120,21 @@ Custom constructor only / Yalnızca özel kurucu: `shadowColor`, `radius`, `enab
 
 ## Other packages / Diğer paketler
 
-By the same publisher, [abdurrahmankaraoglu.com](https://pub.dev/publishers/abdurrahmankaraoglu.com/packages):
+By the same publisher / Aynı yayıncıdan: [abdurrahmankaraoglu.com](https://pub.dev/publishers/abdurrahmankaraoglu.com/packages)
 
-| Package | Description / Açıklama |
-|---|---|
-| [turkish_kit](https://pub.dev/packages/turkish_kit) | Turkish validators (TC kimlik, VKN, IBAN, phone), amounts in words and text helpers / Türkçe doğrulayıcılar ve metin araçları |
-| [google_maps_polyline](https://pub.dev/packages/google_maps_polyline) | Routes and polylines from the Google Directions API / Google Directions ile rota ve polyline |
-| [marker_crafter](https://pub.dev/packages/marker_crafter) | Custom Google Maps markers drawn with Canvas / Canvas ile özel harita işaretçileri |
-| [animated_route_marker](https://pub.dev/packages/animated_route_marker) | Smoothly moving markers along a route or live GPS / Rota boyunca akıcı hareket eden işaretçi |
-| [advanced_background_locator](https://pub.dev/packages/advanced_background_locator) | Background location tracking / Arka planda konum takibi |
-| [advanced_geofence](https://pub.dev/packages/advanced_geofence) | Enter, exit and dwell events for circle and polygon zones / Daire ve çokgen bölge olayları |
-| [route_simulator](https://pub.dev/packages/route_simulator) | Realistic fake GPS streams along a route / Rota boyunca gerçekçi sahte GPS akışı |
+| Package / Paket | Description | Açıklama |
+|---|---|---|
+| [google_maps_polyline](https://pub.dev/packages/google_maps_polyline) | Google Directions routes and polyline encode/decode (pure Dart) | Google Directions rotası ve polyline kodlama/çözme (saf Dart) |
+| [marker_crafter](https://pub.dev/packages/marker_crafter) | Custom Google Maps markers drawn with Canvas | Canvas ile çizilen özel Google Maps işaretçileri |
+| [animated_route_marker](https://pub.dev/packages/animated_route_marker) | Smoothly animated map marker along a route or live GPS | Rota ya da canlı GPS üzerinde akıcı hareket eden harita işaretçisi |
+| [advanced_background_locator](https://pub.dev/packages/advanced_background_locator) | Background location tracking plugin (Android/iOS) | Arka planda konum takibi eklentisi (Android/iOS) |
+| [advanced_geofence](https://pub.dev/packages/advanced_geofence) | Pure Dart geofencing engine: enter, exit and dwell events | Saf Dart geofence motoru: giriş, çıkış ve bekleme olayları |
+| [route_simulator](https://pub.dev/packages/route_simulator) | Realistic fake GPS streams for testing and demos | Test ve demo için gerçekçi sahte GPS akışı |
+| [background_doctor](https://pub.dev/packages/background_doctor) | Diagnoses why background work stops on Android and why the app was killed | Android'de arka plan işinin neden durduğunu ve uygulamanın neden kapandığını teşhis eder |
+| [scan_tally](https://pub.dev/packages/scan_tally) | Continuous barcode scanning for stock counts: dedupe, tally, feedback, GS1 | Stok sayımı için sürekli barkod okutma: tekrar ayıklama, sayım, geri bildirim, GS1 |
+| [scan_tally_mobile_scanner](https://pub.dev/packages/scan_tally_mobile_scanner) | mobile_scanner camera adapter for scan_tally | scan_tally için mobile_scanner kamera adaptörü |
+| [turkish_kit](https://pub.dev/packages/turkish_kit) | Turkish validators, money in words, casing, provinces, holidays (pure Dart) | Türkçe doğrulayıcılar, tutarı yazıyla yazma, harf dönüşümü, il/ilçe, tatiller (saf Dart) |
+| [turkish_kit_flutter](https://pub.dev/packages/turkish_kit_flutter) | Flutter widgets for turkish_kit: Turkish money field and input formatters | turkish_kit için Flutter bileşenleri: Türk biçimli para alanı ve girdi biçimleyicileri |
 
 ## License / Lisans
 

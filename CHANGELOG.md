@@ -1,3 +1,9 @@
+## 2.0.5
+
+* DOCS: The "Other packages" list in the README now covers all 11 other packages of the
+  publisher, with English and Turkish descriptions. / README'deki "Diğer paketler" listesi
+  yayıncının diğer 11 paketini İngilizce ve Türkçe açıklamalarla kapsıyor.
+
 ## 2.0.4
 
 * DOCS: README has screenshots, a feature list and links to the publisher's other packages. /
