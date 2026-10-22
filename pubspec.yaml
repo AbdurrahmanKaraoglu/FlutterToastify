@@ -1,6 +1,6 @@
 name: flutter_toastify
 description: Customizable animated toast notifications for Flutter with success, error, info and custom styles, progress indicator and action support.
-version: 2.0.3
+version: 2.0.4
 homepage: https://github.com/AbdurrahmanKaraoglu/FlutterToastify
 repository: https://github.com/AbdurrahmanKaraoglu/FlutterToastify
 issue_tracker: https://github.com/AbdurrahmanKaraoglu/FlutterToastify/issues
@@ -10,6 +10,16 @@ topics:
   - snackbar
   - overlay
   - ui
+
+screenshots:
+  - description: Success toast with a progress bar at the top left.
+    path: doc/screenshots/success.webp
+  - description: Error toast sliding in from the right.
+    path: doc/screenshots/error.webp
+  - description: Custom toast with its own icon and colors.
+    path: doc/screenshots/custom.webp
+  - description: Info toast with a tappable action link.
+    path: doc/screenshots/action.webp
 
 environment:
   sdk: ^3.6.0

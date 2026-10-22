@@ -1,3 +1,13 @@
+## 2.0.4
+
+* DOCS: README has screenshots, a feature list and links to the publisher's other packages. /
+  README'ye ekran görüntüleri, özellik listesi ve yayıncının diğer paketlerine bağlantılar eklendi.
+* Added `screenshots` to the pubspec for pub.dev. / pub.dev için pubspec'e `screenshots` eklendi.
+* The built-in style icons were downscaled from 512x512 to 128x128 (90 KB to 18 KB in total)
+  with no visible change at normal sizes. / Hazır stil ikonları 512x512'den 128x128'e
+  küçültüldü (toplam 90 KB'tan 18 KB'a); normal boyutlarda görünüm değişmedi.
+* No API or behavior changes. / API ve davranış değişikliği yok.
+
 ## 2.0.3
 
 * DOCS: API documentation is now in English first, followed by Turkish. /
